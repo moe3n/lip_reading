@@ -1,0 +1,17 @@
+# Additional packages needed for the CPT Decoder (src/cpt_decoder/) beyond
+# whatever base PyTorch/transformers environment the LEAP setup guide's
+# Docker images already provide.
+#
+# peft, bitsandbytes, accelerate -> required for the QLoRA path itself.
+# bitsandbytes' 4-bit kernels are CUDA-only (uni PC GPU) - on a CPU/Mac
+# dry run, model.py auto-disables quantisation rather than failing.
+peft>=0.11
+bitsandbytes>=0.43
+accelerate>=0.31
+
+# Data pipeline (G2P, hard negatives) + evaluation - reused from the Phase 1
+# Flan-T5 prototype.
+nltk>=3.8
+pandas>=2.0
+jiwer>=3.0
+sacrebleu>=2.4

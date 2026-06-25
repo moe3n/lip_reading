@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+dryrun_checkpoints/
+checkpoints/
+.venv/
+venv/
+venv2/
+.DS_Store
