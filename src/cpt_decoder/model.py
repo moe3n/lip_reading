@@ -69,6 +69,33 @@ USE_4BIT = torch.cuda.is_available()   # bitsandbytes 4-bit needs CUDA
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
+def _select_4bit_compute_dtype() -> torch.dtype:
+    """
+    Added 25 Jun 2026, ahead of the first real run on the uni PC's GPUs.
+
+    bfloat16 has no hardware support below compute capability 8.0
+    (Ampere+) — PyTorch/bitsandbytes will raise "ValueError: Bfloat16 is
+    only supported on GPUs with compute capability of at least 8.0" the
+    moment training starts if it's requested on an older card. The uni
+    PC's GTX 1080s are Pascal, compute capability 6.1, so the previous
+    hardcoded bnb_4bit_compute_dtype=torch.bfloat16 below would have hit
+    this immediately. Auto-detect instead of hardcoding to one known GPU,
+    so this keeps working if the hardware ever changes. Override with
+    CPT_BNB_COMPUTE_DTYPE=bfloat16|float16 if you ever need to force it.
+    """
+    override = os.environ.get("CPT_BNB_COMPUTE_DTYPE")
+    if override:
+        return getattr(torch, override)
+    if torch.cuda.is_available():
+        major, _ = torch.cuda.get_device_capability()
+        if major >= 8:
+            return torch.bfloat16
+    return torch.float16
+
+
+BNB_COMPUTE_DTYPE = _select_4bit_compute_dtype()  # bf16 on Ampere+, fp16 on Pascal/Volta/Turing
+
+
 def load_tokenizer(model_name: str):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     # Add a dedicated pad token rather than aliasing EOS. When pad == EOS,
@@ -102,13 +129,13 @@ def load_model_with_lora(model_name: str,
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
             bnb_4bit_use_double_quant=True,
-            bnb_4bit_compute_dtype=torch.bfloat16,
+            bnb_4bit_compute_dtype=BNB_COMPUTE_DTYPE,
         )
 
     base_model = AutoModelForCausalLM.from_pretrained(
         model_name,
         quantization_config=quant_config,
-        torch_dtype=torch.bfloat16 if USE_4BIT else CPU_DTYPE,
+        torch_dtype=BNB_COMPUTE_DTYPE if USE_4BIT else CPU_DTYPE,
         device_map="auto" if USE_4BIT else None,
         low_cpu_mem_usage=True,   # avoid a transient ~2x RAM spike during from_pretrained()
     )
@@ -133,7 +160,8 @@ def load_model_with_lora(model_name: str,
 
     total = sum(p.numel() for p in model.parameters())
     trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
-    print(f"Loaded {model_name}  (4-bit QLoRA: {USE_4BIT}, device: {DEVICE})")
+    compute_dtype = BNB_COMPUTE_DTYPE if USE_4BIT else CPU_DTYPE
+    print(f"Loaded {model_name}  (4-bit QLoRA: {USE_4BIT}, compute dtype: {compute_dtype}, device: {DEVICE})")
     print(f"  Total parameters     : {total:>12,}")
     print(f"  Trainable (LoRA only): {trainable:>12,}  ({trainable/total*100:.2f}%)")
 

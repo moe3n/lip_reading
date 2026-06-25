@@ -51,6 +51,18 @@ uni PC GPU. This script proves the pipeline mechanics: prompt formatting,
 label masking, LoRA injection, phoneme-prefix pooling, contrastive loss
 combination, training loop, generation, checkpoint save/load.
 
+UPDATE (25 Jun 2026): HF gated access to meta-llama/Llama-3.2-3B was
+approved. Rather than literally editing MODEL_NAME_DRYRUN in model.py
+(which would also flip the default for this CPU sandbox, where there's
+no GPU and no local HF auth to download a 6GB gated checkpoint with),
+every CFG knob below is now also readable from an environment variable
+— see the block above CFG. On the uni PC, after `huggingface-cli login`,
+set CPT_MODEL_NAME=meta-llama/Llama-3.2-3B (plus CPT_N_HOMOPHONE /
+CPT_N_NON_HOMOPHONE / CPT_LORA_R for the full-corpus run) and run this
+same file unmodified. See RUNBOOK_real_run.md in the repo root for the
+exact command sequence. Leaving CPT_* unset keeps this sandbox's CPU dry
+run exactly as it was.
+
 PHONEME SOURCE (updated 21 Jun 2026)
 -------------------------------------
 build_dryrun_dataframes() now pulls phonemes from
@@ -82,35 +94,64 @@ from cpt_decoder.model import (                               # noqa: E402
     load_tokenizer, load_model_with_lora, MODEL_NAME_DRYRUN, DEVICE, USE_4BIT,
 )
 from cpt_decoder.evaluation.metrics import stratified_evaluate, print_results, save_results  # noqa: E402
+from cpt_decoder.evaluation.error_analysis import error_category_report, print_error_report  # noqa: E402
 
 # ════════════════════════════════════════════════════════════════════════
-# CONFIGURATION — dry-run scale. See header for what to change for the
-# full run (model name, n_*, lora_r, epochs — same knobs the Flan-T5
-# notebook called out for the university PC).
+# CONFIGURATION — defaults below are CPU dry-run scale. Every knob is also
+# overridable via environment variable (added 25 Jun 2026) so the SAME
+# script becomes the real uni-PC GPU run without editing this file:
+#
+#   Validation run (real model + real 4-bit, still small/fast):
+#     CPT_MODEL_NAME=meta-llama/Llama-3.2-3B python3 -m src.cpt_decoder.dryrun
+#
+#   Full run (real model, full 37,374+10,790-row corpus, scaled LoRA):
+#     CPT_MODEL_NAME=meta-llama/Llama-3.2-3B \
+#     CPT_N_HOMOPHONE=37374 CPT_N_NON_HOMOPHONE=10790 \
+#     CPT_LORA_R=48 CPT_EPOCHS=3 \
+#     python3 -m src.cpt_decoder.dryrun
+#
+# Leaving every CPT_* var unset reproduces the exact CPU dry-run behaviour
+# this script has always had (Qwen stand-in, 130+70 sentences) — confirmed
+# unchanged by re-running it in the sandbox after adding these overrides.
 # ════════════════════════════════════════════════════════════════════════
+def _env_str(name: str, default: str) -> str:
+    return os.environ.get(name, default)
+
+
+def _env_int(name: str, default: int) -> int:
+    val = os.environ.get(name)
+    return int(val) if val else default
+
+
+def _env_float(name: str, default: float) -> float:
+    val = os.environ.get(name)
+    return float(val) if val else default
+
+
 CFG = {
-    "model_name":        MODEL_NAME_DRYRUN,
+    "model_name":        _env_str("CPT_MODEL_NAME", MODEL_NAME_DRYRUN),
     # Scaled up from 20/10 (30 total) on 21 Jun 2026 for a more meaningful
     # supervisor update — still well within the 37,374 homophone / 10,790
     # non-homophone rows available in sentphonemepairs_LRS2_original.csv,
     # just a bigger stratified slice of them. 200 sentences / 2 epochs on
     # this CPU-only, 3.8GiB sandbox runs in ~45-60 min; true full-corpus
-    # training is reserved for the uni GPU box.
-    "n_homophone":        130,
-    "n_non_homophone":    70,
-    "max_input_len":      96,     # phoneme-prefix budget (tokens)
-    "max_target_len":     32,     # sentence completion budget (tokens)
-    "lora_r":             8,
-    "lora_alpha":         16,
-    "lora_dropout":       0.1,
-    "epochs":             2,
-    "batch_size":         2,
-    "grad_accumulation":  2,
-    "learning_rate":      2e-4,
-    "warmup_steps":       2,
-    "contrastive_margin": 0.5,
-    "contrastive_lambda": 0.1,
-    "checkpoint_dir":     os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "dryrun_checkpoints"),
+    # training is reserved for the uni GPU box (override via CPT_N_HOMOPHONE
+    # / CPT_N_NON_HOMOPHONE above).
+    "n_homophone":        _env_int("CPT_N_HOMOPHONE", 130),
+    "n_non_homophone":    _env_int("CPT_N_NON_HOMOPHONE", 70),
+    "max_input_len":      _env_int("CPT_MAX_INPUT_LEN", 96),    # phoneme-prefix budget (tokens)
+    "max_target_len":     _env_int("CPT_MAX_TARGET_LEN", 32),  # sentence completion budget (tokens)
+    "lora_r":             _env_int("CPT_LORA_R", 8),
+    "lora_alpha":         _env_int("CPT_LORA_ALPHA", 16),
+    "lora_dropout":       _env_float("CPT_LORA_DROPOUT", 0.1),
+    "epochs":             _env_int("CPT_EPOCHS", 2),
+    "batch_size":         _env_int("CPT_BATCH_SIZE", 2),
+    "grad_accumulation":  _env_int("CPT_GRAD_ACCUM", 2),
+    "learning_rate":      _env_float("CPT_LEARNING_RATE", 2e-4),
+    "warmup_steps":       _env_int("CPT_WARMUP_STEPS", 2),
+    "contrastive_margin": _env_float("CPT_CONTRASTIVE_MARGIN", 0.5),
+    "contrastive_lambda": _env_float("CPT_CONTRASTIVE_LAMBDA", 0.1),
+    "checkpoint_dir":     _env_str("CPT_CHECKPOINT_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "dryrun_checkpoints")),
 }
 
 
@@ -286,6 +327,8 @@ def build_dryrun_dataframes():
 
 def main():
     os.makedirs(CFG["checkpoint_dir"], exist_ok=True)
+    print(f"Model: {CFG['model_name']}  |  Sentences: {CFG['n_homophone']} homophone + "
+          f"{CFG['n_non_homophone']} non-homophone  |  LoRA r={CFG['lora_r']}  |  Epochs: {CFG['epochs']}")
     print(f"Device: {DEVICE}  |  4-bit QLoRA active: {USE_4BIT}")
     if not USE_4BIT:
         print("  -> No CUDA here, so this run validates the pipeline at full precision.")
@@ -315,7 +358,7 @@ def main():
         optimizer, num_warmup_steps=CFG["warmup_steps"], num_training_steps=total_steps,
     )
 
-    print(f"\nTraining ({CFG['epochs']} epochs, dry-run scale)...")
+    print(f"\nTraining ({CFG['epochs']} epochs, {len(df_tr) + len(df_val)} sentences)...")
     print("-" * 60)
     history = []
     n_tr_total = len(train_dl)
@@ -409,6 +452,16 @@ def main():
 
     metrics_csv = os.path.join(CFG["checkpoint_dir"], "metrics_log.csv")
     save_results(eval_results, metrics_csv, model_name=CFG["model_name"])
+
+    # Error pattern analysis (P2T framework Stage 2 + Stage 3-Option-2): for
+    # every substitution error, classify it as Homophone / Near-homophone /
+    # Other via the CMU-dict phoneme lookups in hard_negatives.py. The
+    # homophone-subset %-phonetically-explainable figure is the number that
+    # tells us whether the contrastive hard-negative mechanism is targeting
+    # the errors actually occurring, or whether the bottleneck is elsewhere
+    # (model capacity / data scale) — see error_analysis.py module docstring.
+    error_report = error_category_report(all_refs, all_hyps, homo_mask)
+    print_error_report(error_report, title=f"{CFG['model_name']} dry run — error pattern analysis")
 
     return history
 
