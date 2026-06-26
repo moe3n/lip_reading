@@ -15,3 +15,18 @@ nltk>=3.8
 pandas>=2.0
 jiwer>=3.0
 sacrebleu>=2.4
+
+# Stage 3 Option 3 (grammar-based contextual analysis) of the P2T Error
+# Pattern Analysis framework -- added 25 Jun 2026, see
+# evaluation/contextual_analysis.py. After installing, also run:
+#   python -m spacy download en_core_web_sm
+spacy>=3.7
+
+# Stage 3 Option 5 (LLM-based error classification) -- added 25 Jun 2026,
+# see evaluation/llm_judge.py. classify_error() calls
+# tokenizer.apply_chat_template(), which raises ImportError on jinja2
+# <3.1.0 ("apply_chat_template requires jinja2>=3.1.0"). This sandbox had
+# 3.0.3 installed; bumping it didn't break anything else here, but if the
+# uni PC's existing environment pins jinja2 for an unrelated reason,
+# check before upgrading blindly.
+jinja2>=3.1.0

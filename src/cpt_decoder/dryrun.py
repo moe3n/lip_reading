@@ -128,6 +128,11 @@ def _env_float(name: str, default: float) -> float:
     return float(val) if val else default
 
 
+def _env_bool(name: str, default: bool) -> bool:
+    val = os.environ.get(name)
+    return val.strip().lower() in ("1", "true", "yes", "on") if val else default
+
+
 CFG = {
     "model_name":        _env_str("CPT_MODEL_NAME", MODEL_NAME_DRYRUN),
     # Scaled up from 20/10 (30 total) on 21 Jun 2026 for a more meaningful
@@ -152,6 +157,20 @@ CFG = {
     "contrastive_margin": _env_float("CPT_CONTRASTIVE_MARGIN", 0.5),
     "contrastive_lambda": _env_float("CPT_CONTRASTIVE_LAMBDA", 0.1),
     "checkpoint_dir":     _env_str("CPT_CHECKPOINT_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "dryrun_checkpoints")),
+    # Stage 3 Option 5 (LLM-based error classification) escalation gate --
+    # added 25 Jun 2026, see evaluation/error_analysis.py /
+    # evaluation/llm_judge.py. Off by default: Option 5 needs a
+    # disable_adapter() pass through the already-loaded model below for
+    # every Homophone/Near-homophone substitution Option 3 (grammar)
+    # leaves unresolved, which is a real cost increase on top of the
+    # generation loop already happening, and -- per llm_judge.py's own
+    # documented finding -- the CPU dry-run judge model's classifications
+    # aren't yet trustworthy even when it runs cleanly. Set
+    # CPT_LLM_ERROR_JUDGE=1 to opt in (e.g. once a genuinely instruct-
+    # tuned judge model is available on the uni PC GPU -- see
+    # llm_judge.py's docstring on why disable_adapter() alone doesn't fix
+    # this for MODEL_NAME_TARGET, a base/non-instruct checkpoint).
+    "llm_error_judge":    _env_bool("CPT_LLM_ERROR_JUDGE", False),
 }
 
 
@@ -460,7 +479,10 @@ def main():
     # tells us whether the contrastive hard-negative mechanism is targeting
     # the errors actually occurring, or whether the bottleneck is elsewhere
     # (model capacity / data scale) — see error_analysis.py module docstring.
-    error_report = error_category_report(all_refs, all_hyps, homo_mask)
+    error_report = error_category_report(
+        all_refs, all_hyps, homo_mask,
+        tokenizer=tokenizer, model=model, use_llm=CFG["llm_error_judge"],
+    )
     print_error_report(error_report, title=f"{CFG['model_name']} dry run — error pattern analysis")
 
     return history
