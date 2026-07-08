@@ -197,9 +197,9 @@ def print_results(results: Dict[str, Dict],
         if h and n:
             wer_gap = (h["WER"] - n["WER"]) * 100
             em_gap  = (n["Exact_Match"] - h["Exact_Match"]) * 100
-            print(f"\n  ► WER gap  (homo - non-homo): {wer_gap:+.2f}%")
-            print(f"  ► EM gap   (non-homo - homo): {em_gap:+.2f}%")
-            print(f"  ► This gap is the core motivation for CPT training.")
+            print(f"\n  >> WER gap  (homo - non-homo): {wer_gap:+.2f}%")
+            print(f"  >> EM gap   (non-homo - homo): {em_gap:+.2f}%")
+            print(f"  >> This gap is the core motivation for CPT training.")
     print()
 
 
