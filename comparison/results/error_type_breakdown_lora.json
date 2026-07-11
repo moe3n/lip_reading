@@ -1,0 +1,250 @@
+{
+  "summary": {
+    "Exact match": {
+      "count": 412,
+      "pct": 41.199999999999996
+    },
+    "Vowel": {
+      "count": 244,
+      "pct": 24.4
+    },
+    "Other": {
+      "count": 182,
+      "pct": 18.2
+    },
+    "Manner": {
+      "count": 97,
+      "pct": 9.700000000000001
+    },
+    "Homophone": {
+      "count": 26,
+      "pct": 2.6
+    },
+    "Long": {
+      "count": 20,
+      "pct": 2.0
+    },
+    "Short": {
+      "count": 14,
+      "pct": 1.4000000000000001
+    },
+    "Hallucination": {
+      "count": 5,
+      "pct": 0.5
+    }
+  },
+  "top_homophone": [
+    [
+      [
+        "to",
+        "two"
+      ],
+      4
+    ],
+    [
+      [
+        "there",
+        "their"
+      ],
+      2
+    ],
+    [
+      [
+        "too",
+        "to"
+      ],
+      2
+    ],
+    [
+      [
+        "lots",
+        "lotts"
+      ],
+      1
+    ],
+    [
+      [
+        "their",
+        "there"
+      ],
+      1
+    ],
+    [
+      [
+        "for",
+        "four"
+      ],
+      1
+    ],
+    [
+      [
+        "here",
+        "hear"
+      ],
+      1
+    ],
+    [
+      [
+        "too",
+        "two"
+      ],
+      1
+    ],
+    [
+      [
+        "barry",
+        "barre"
+      ],
+      1
+    ],
+    [
+      [
+        "wringing",
+        "ringing"
+      ],
+      1
+    ],
+    [
+      [
+        "jeans",
+        "genes"
+      ],
+      1
+    ],
+    [
+      [
+        "and",
+        "und"
+      ],
+      1
+    ],
+    [
+      [
+        "planes",
+        "plains"
+      ],
+      1
+    ],
+    [
+      [
+        "won",
+        "one"
+      ],
+      1
+    ],
+    [
+      [
+        "two",
+        "to"
+      ],
+      1
+    ]
+  ],
+  "top_near_homophone": [
+    [
+      [
+        "a",
+        "an"
+      ],
+      9
+    ],
+    [
+      [
+        "away",
+        "way"
+      ],
+      4
+    ],
+    [
+      [
+        "thing",
+        "think"
+      ],
+      4
+    ],
+    [
+      [
+        "a",
+        "us"
+      ],
+      3
+    ],
+    [
+      [
+        "of",
+        "a"
+      ],
+      3
+    ],
+    [
+      [
+        "lots",
+        "lot"
+      ],
+      2
+    ],
+    [
+      [
+        "died",
+        "did"
+      ],
+      2
+    ],
+    [
+      [
+        "giving",
+        "given"
+      ],
+      2
+    ],
+    [
+      [
+        "saw",
+        "so"
+      ],
+      2
+    ],
+    [
+      [
+        "now",
+        "know"
+      ],
+      2
+    ],
+    [
+      [
+        "chock",
+        "check"
+      ],
+      1
+    ],
+    [
+      [
+        "says",
+        "said"
+      ],
+      1
+    ],
+    [
+      [
+        "expect",
+        "expects"
+      ],
+      1
+    ],
+    [
+      [
+        "paused",
+        "posed"
+      ],
+      1
+    ],
+    [
+      [
+        "play",
+        "place"
+      ],
+      1
+    ]
+  ]
+}

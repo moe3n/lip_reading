@@ -1,0 +1,21 @@
+STATUS | HOMO | PREDICTED | TARGET
+WRONG | H | And they say, "What's up, Doc? | AND FOR ME THE SURPRISE WAS
+WRONG | - | The reason why I'm running is because I'm a runner. | THEY'RE MOVING AROUND
+WRONG | H | And they will be ready to go. | AND WE WERE RIGHT
+WRONG | H | And then he kissed her. | AND THE NEXT DAY
+WRONG | H | We have a plan to attack the enemy. | WHEN THERE ISN'T MUCH ELSE IN THE GARDEN
+WRONG | - | Sartahvafaktover | SORT OF SECOND HALF OF OCTOBER
+WRONG | - | Well, I'm not sure what you mean by that. I'm not a computer scientist. | WELL INTO NOVEMBER
+WRONG | H | I want a steak with a big piece of steak on it | WE CAN JUST ABOUT GET AWAY WITH IT NOW
+WRONG | - | Samthing lay kagarden kamppost | SOMETHING LIKE A GARDEN COMPOST
+WRONG | H | It was a hot summer day. | IT'S NOT ALL ABOUT SIZE
+WRONG | H | And I want to be a writer | AND IF YOU WANT WONDERFUL
+WRONG | - | Start with a star, then a word, then a word, then a word, then a word, then a word, then a word, then a word, then | STARTING WITH THE COMPOST
+WRONG | H | Farfetched | FOR A BRIEF TIME
+WRONG | - | I think I love you | IT WILL CHANGE LIVES
+WRONG | H | When may I hand you a banana? | WHEN MY HUSBAND AND I ARE NOT AROUND
+WRONG | - | Please don't yell. | PLEASE DONATE NOW
+WRONG | - | Don't argue with me. | DON'T FORGET ME
+WRONG | H | This is a test. | THESE ARE MY WORDS
+WRONG | H | I think you're stupid. | IT WOULD HAVE BEEN COMPLETELY ALIEN TO THE REST OF LONDON
+WRONG | H | Bathing kittens are running and hiding. | BUT I THINK WHAT WE'RE SEEING HERE IS KIND OF THE BLUEPRINT

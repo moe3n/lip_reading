@@ -1,0 +1,152 @@
+{
+  "overall": {
+    "totals": {
+      "n_hits": 6,
+      "n_substitutions": 31,
+      "n_deletions": 6,
+      "n_insertions": 26
+    },
+    "substitution_categories": {
+      "Other": 31
+    },
+    "examples": {
+      "Homophone": [],
+      "Near-homophone": [],
+      "Other": [
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "for",
+          "they"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "me",
+          "say"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "the",
+          "whats"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "surprise",
+          "up"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "was",
+          "doc"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "homophone": {
+    "totals": {
+      "n_hits": 5,
+      "n_substitutions": 25,
+      "n_deletions": 1,
+      "n_insertions": 8
+    },
+    "substitution_categories": {
+      "Other": 25
+    },
+    "examples": {
+      "Homophone": [],
+      "Near-homophone": [],
+      "Other": [
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "for",
+          "they"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "me",
+          "say"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "the",
+          "whats"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "surprise",
+          "up"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "was",
+          "doc"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "non_homophone": {
+    "totals": {
+      "n_hits": 1,
+      "n_substitutions": 6,
+      "n_deletions": 5,
+      "n_insertions": 18
+    },
+    "substitution_categories": {
+      "Other": 6
+    },
+    "examples": {
+      "Homophone": [],
+      "Near-homophone": [],
+      "Other": [
+        [
+          "THEY'RE MOVING AROUND",
+          "The reason why I'm running is because I'm a runner.",
+          "theyre",
+          "im"
+        ],
+        [
+          "THEY'RE MOVING AROUND",
+          "The reason why I'm running is because I'm a runner.",
+          "moving",
+          "a"
+        ],
+        [
+          "THEY'RE MOVING AROUND",
+          "The reason why I'm running is because I'm a runner.",
+          "around",
+          "runner"
+        ],
+        [
+          "SORT OF SECOND HALF OF OCTOBER",
+          "Sartahvafaktover",
+          "sort",
+          "sartahvafaktover"
+        ],
+        [
+          "WELL INTO NOVEMBER",
+          "Well, I'm not sure what you mean by that. I'm not a computer scientist.",
+          "into",
+          "computer"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  }
+}

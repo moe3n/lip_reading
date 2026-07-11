@@ -1,0 +1,39 @@
+# Packages needed for src/p2t_lora/ (forked from src/cpt_decoder/ -- see
+# requirements-cpt-decoder.txt for that package's own, unmodified list).
+# Duplicated here rather than shared so the two packages' dependency sets
+# can drift independently without one file trying to serve both.
+#
+# peft, bitsandbytes, accelerate -> required for the QLoRA path itself.
+# bitsandbytes' 4-bit kernels are CUDA-only (uni PC GPU) - on a CPU/Mac
+# dry run, model.py auto-disables quantisation rather than failing.
+peft>=0.11
+bitsandbytes>=0.43
+accelerate>=0.31
+
+# Data pipeline (G2P, hard negatives) + evaluation.
+nltk>=3.8
+pandas>=2.0
+jiwer>=3.0
+sacrebleu>=2.4
+
+# Stage 3 Option 3 (grammar-based contextual analysis), evaluation/contextual_analysis.py.
+# After installing, also run: python -m spacy download en_core_web_sm
+spacy>=3.7
+
+# Stage 3 Option 5 (LLM-based error classification), evaluation/llm_judge.py.
+# classify_error() calls tokenizer.apply_chat_template(), which needs jinja2>=3.1.0.
+jinja2>=3.1.0
+
+# extended_metrics.py -- mirrors Mira Fleite's prompting-baseline metric suite
+# (Other student's work/mira's/) so our fine-tuned/prompting-only results are
+# directly comparable to hers. panphon: articulatory-feature-weighted PER
+# (WPER) -- on Windows, needs PYTHONUTF8=1 set in the environment or its
+# bundled feature-table CSV fails to load (locale/encoding issue, not a bug
+# in panphon itself). language_tool_python: grammar-error checking, needs a
+# local Java runtime (JRE 17+) -- it runs a bundled LanguageTool server on
+# first use; raises a clear error rather than falling back to the public API
+# if Java isn't found. bert-score: semantic similarity between reference and
+# hypothesis sentences (downloads a ~400MB scoring model on first use).
+panphon>=0.20
+language_tool_python>=2.7
+bert-score>=0.3

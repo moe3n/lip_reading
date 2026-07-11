@@ -1,0 +1,63 @@
+{
+  "source": "Mira Fleite, Llama-3.1-8B-Instruct, zero-shot prompting",
+  "n": 45839,
+  "row_alignment_mismatches": 0,
+  "core_metrics": {
+    "overall": {
+      "label": "Overall",
+      "n_sentences": 45839,
+      "WER": 1.373227413573121,
+      "CER": 0.8754509589318497,
+      "BLEU-4": 0.036231978522699985,
+      "Exact_Match": 0.008115360282728681
+    },
+    "homophone": {
+      "label": "Homophone",
+      "n_sentences": 35659,
+      "WER": 1.333179914061236,
+      "CER": 0.8599555474038268,
+      "BLEU-4": 0.03886017932364897,
+      "Exact_Match": 0.008216719481757761
+    },
+    "non_homophone": {
+      "label": "Non-Homophone",
+      "n_sentences": 10180,
+      "WER": 1.5912873225648556,
+      "CER": 0.9536545722240849,
+      "BLEU-4": 0.022867168690596237,
+      "Exact_Match": 0.007760314341846758
+    }
+  },
+  "PER_overall_pct": 91.2260969390492,
+  "sid": {
+    "word": {
+      "hits": 70690,
+      "substitutions": 236632,
+      "insertions": 193549,
+      "deletions": 21858,
+      "wer": 1.373227413573121
+    },
+    "char": {
+      "hits": 974079,
+      "substitutions": 480482,
+      "insertions": 767422,
+      "deletions": 204681,
+      "cer": 0.8754509589318497
+    }
+  },
+  "aer": {
+    "n_substitutions": 401872,
+    "n_classified": 401872,
+    "n_insertions": 444406,
+    "n_deletions": 174064,
+    "n_hits": 542540,
+    "place": 235467,
+    "manner": 242209,
+    "voicing": 116372,
+    "place_pct": 58.592536927180795,
+    "manner_pct": 60.27018553171158,
+    "voicing_pct": 28.95747899828801
+  },
+  "wper_heuristic_pct": 74.45978277635842,
+  "wper_panphon_pct": 52.82669943866496
+}

@@ -1,0 +1,21 @@
+STATUS | HOMO | PREDICTED | TARGET
+WRONG | H | the number of words in it. | AND FOR ME THE SURPRISE WAS
+WRONG | - | the number of words in it. | THEY'RE MOVING AROUND
+WRONG | H | the number of words in it. | AND WE WERE RIGHT
+WRONG | H | the number of words in it. | AND THE NEXT DAY
+WRONG | H | the number of words in it. | WHEN THERE ISN'T MUCH ELSE IN THE GARDEN
+WRONG | - | the number of words in it. | SORT OF SECOND HALF OF OCTOBER
+WRONG | - | the number of words in it. | WELL INTO NOVEMBER
+WRONG | H | the number of words in it. | WE CAN JUST ABOUT GET AWAY WITH IT NOW
+WRONG | - | the number of words in it. | SOMETHING LIKE A GARDEN COMPOST
+WRONG | H | the number of words in it. | IT'S NOT ALL ABOUT SIZE
+WRONG | H | the number of words in it. | AND IF YOU WANT WONDERFUL
+WRONG | - | the number of words in it. | STARTING WITH THE COMPOST
+WRONG | H | the number of words in it. | FOR A BRIEF TIME
+WRONG | - | the number of words in it. | IT WILL CHANGE LIVES
+WRONG | H | the number of words in it. | WHEN MY HUSBAND AND I ARE NOT AROUND
+WRONG | - | the number of words in it. | PLEASE DONATE NOW
+WRONG | - | the number of words in it. | DON'T FORGET ME
+WRONG | H | the number of words in it. | THESE ARE MY WORDS
+WRONG | H | the number of words in it. | IT WOULD HAVE BEEN COMPLETELY ALIEN TO THE REST OF LONDON
+WRONG | H | the number of words in it. | BUT I THINK WHAT WE'RE SEEING HERE IS KIND OF THE BLUEPRINT

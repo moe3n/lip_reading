@@ -1,0 +1,9 @@
+STATUS | HOMO | PREDICTED | TARGET
+WRONG | H | And they say, "What's up, Doc? | AND FOR ME THE SURPRISE WAS
+WRONG | - | The reason why I'm running is because I'm a runner. | THEY'RE MOVING AROUND
+WRONG | H | And they will be ready to go. | AND WE WERE RIGHT
+WRONG | H | And then he kissed her. | AND THE NEXT DAY
+WRONG | H | We have a plan to attack the enemy. | WHEN THERE ISN'T MUCH ELSE IN THE GARDEN
+WRONG | - | Sartahvafaktover | SORT OF SECOND HALF OF OCTOBER
+WRONG | - | Well, I'm not sure what you mean by that. I'm not a computer scientist. | WELL INTO NOVEMBER
+WRONG | H | I want a steak with a big piece of steak on it | WE CAN JUST ABOUT GET AWAY WITH IT NOW

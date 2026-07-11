@@ -1,4 +1,0 @@
-timestamp,model,subset,n,WER,CER,BLEU4,ExactMatch
-2026-07-08 11:27,roneneldan/TinyStories-1M zero-shot val,Overall,1082,280.8844,212.6916,0.0004,0.0
-2026-07-08 11:27,roneneldan/TinyStories-1M zero-shot val,Homophone,764,262.097,201.4701,0.0005,0.0
-2026-07-08 11:27,roneneldan/TinyStories-1M zero-shot val,Non-Homophone,318,341.3943,246.0467,0.0007,0.0

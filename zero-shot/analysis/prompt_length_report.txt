@@ -1,0 +1,5 @@
+MAX_INPUT_LEN = 320
+corpus rows = 48164
+
+clean  n=48164  mean=73.8  p99=119  max=138  over_budget=0 (0.0%)
+raw    n=48164  mean=172.3  p99=268  max=302  over_budget=0 (0.0%)

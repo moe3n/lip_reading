@@ -1,0 +1,397 @@
+{
+  "source": "p2t_lora fine-tuned (Llama-3.2-3B + LoRA, no contrastive)",
+  "n": 1000,
+  "error_report": {
+    "overall": {
+      "totals": {
+        "n_hits": 5803,
+        "n_substitutions": 987,
+        "n_deletions": 288,
+        "n_insertions": 138
+      },
+      "substitution_categories": {
+        "Other": 828,
+        "Near-homophone": 133,
+        "Homophone": 26
+      },
+      "examples": {
+        "Homophone": [
+          [
+            "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+            "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+            "lots",
+            "lotts"
+          ],
+          [
+            "THERE IS NO AIR SO THERE IS NO SOUND",
+            "THERE IS NO AIR SO THEIR IS NO SOUND",
+            "there",
+            "their"
+          ],
+          [
+            "THEIR INJURIES CAN BE LIFE CHANGING",
+            "THERE INJURIES CAN BE LIFECHANGING",
+            "their",
+            "there"
+          ],
+          [
+            "THE NATION PAUSED FOR A TWO MINUTE SILENCE",
+            "THE NAISHA POSED FOUR QUESTIONS",
+            "for",
+            "four"
+          ],
+          [
+            "WHICH I HAVE ABOUT MY PERSON HERE",
+            "WHICH I HAVE ABOUT MY PERSONAL HEAR",
+            "here",
+            "hear"
+          ]
+        ],
+        "Near-homophone": [
+          [
+            "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+            "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+            "chock",
+            "check"
+          ],
+          [
+            "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+            "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+            "a",
+            "an"
+          ],
+          [
+            "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+            "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+            "says",
+            "said"
+          ],
+          [
+            "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+            "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+            "a",
+            "us"
+          ],
+          [
+            "YOU MIGHT EXPECT SUCCESSFUL OPPORTUNISTIC ANIMALS TO BE BOLD AND GO STRAIGHT IN",
+            "YOU MAY EXPECTS SUCCESSFUL OPERATIONS TO BE BOULDEN AND GO STRAIGHT IN",
+            "expect",
+            "expects"
+          ]
+        ],
+        "Other": [
+          [
+            "I COME FROM LANCASHIRE",
+            "I COME FROM LANCASTER",
+            "lancashire",
+            "lancaster"
+          ],
+          [
+            "OUT THERE IN THE FAIR",
+            "OUT THERE IN THE FIELD",
+            "fair",
+            "field"
+          ],
+          [
+            "THEN THE WHOLE PLACE WOULDN'T CATCH ON FIRE",
+            "THEN THE WHOLE PLACE WON'T CATCH ON FIRE",
+            "wouldnt",
+            "wont"
+          ],
+          [
+            "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+            "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+            "faces",
+            "fades"
+          ],
+          [
+            "WILL THE EXPERTS BE ABLE TO KEEP OUR TEAMS ON THE STRAIGHT AND NARROW AS THEY BROWSE THESE VAST",
+            "WILL THE EXPERTS BE ABLE TO KEEP OUR TEAMS ON THE STRAIGHT AND NEAR AS THEY BRO",
+            "narrow",
+            "near"
+          ]
+        ]
+      },
+      "stage3_categories": {
+        "Contextual": 2
+      },
+      "stage3_methods": {
+        "Option 3 (grammar)": 2
+      },
+      "stage3_examples": [
+        {
+          "ref_sentence": "THERE IS NO AIR SO THERE IS NO SOUND",
+          "hyp_sentence": "THERE IS NO AIR SO THEIR IS NO SOUND",
+          "ref_word": "there",
+          "hyp_word": "their",
+          "stage3_category": "Contextual",
+          "stage3_subcategory": "closed_class_dependency_mismatch",
+          "stage3_explanation": "'THEIR' is lexically restricted to the dependency role(s) [poss] (it can only modify or stand in for a following head noun / verb in that fixed way), but the parser places it here as [nsubj] — a role only a homophone counterpart could fill. Category: Contextual.",
+          "stage3_method": "Option 3 (grammar)"
+        },
+        {
+          "ref_sentence": "THEY SAY THERE'S A BUNCH OF FIFTH COLUMNISTS OVER THERE",
+          "hyp_sentence": "THEY SAY THERE'S A BUNCH OF 5 CALIBRE OVER THEIR",
+          "ref_word": "there",
+          "hyp_word": "their",
+          "stage3_category": "Contextual",
+          "stage3_subcategory": "closed_class_dependency_mismatch",
+          "stage3_explanation": "'THEIR' is lexically restricted to the dependency role(s) [poss] (it can only modify or stand in for a following head noun / verb in that fixed way), but the parser places it here as [pobj] — a role only a homophone counterpart could fill. Category: Contextual.",
+          "stage3_method": "Option 3 (grammar)"
+        }
+      ]
+    },
+    "homophone": {
+      "totals": {
+        "n_hits": 4962,
+        "n_substitutions": 791,
+        "n_deletions": 248,
+        "n_insertions": 117
+      },
+      "substitution_categories": {
+        "Other": 653,
+        "Near-homophone": 112,
+        "Homophone": 26
+      },
+      "examples": {
+        "Homophone": [
+          [
+            "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+            "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+            "lots",
+            "lotts"
+          ],
+          [
+            "THERE IS NO AIR SO THERE IS NO SOUND",
+            "THERE IS NO AIR SO THEIR IS NO SOUND",
+            "there",
+            "their"
+          ],
+          [
+            "THEIR INJURIES CAN BE LIFE CHANGING",
+            "THERE INJURIES CAN BE LIFECHANGING",
+            "their",
+            "there"
+          ],
+          [
+            "THE NATION PAUSED FOR A TWO MINUTE SILENCE",
+            "THE NAISHA POSED FOUR QUESTIONS",
+            "for",
+            "four"
+          ],
+          [
+            "WHICH I HAVE ABOUT MY PERSON HERE",
+            "WHICH I HAVE ABOUT MY PERSONAL HEAR",
+            "here",
+            "hear"
+          ]
+        ],
+        "Near-homophone": [
+          [
+            "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+            "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+            "chock",
+            "check"
+          ],
+          [
+            "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+            "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+            "a",
+            "an"
+          ],
+          [
+            "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+            "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+            "says",
+            "said"
+          ],
+          [
+            "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+            "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+            "a",
+            "us"
+          ],
+          [
+            "YOU MIGHT EXPECT SUCCESSFUL OPPORTUNISTIC ANIMALS TO BE BOLD AND GO STRAIGHT IN",
+            "YOU MAY EXPECTS SUCCESSFUL OPERATIONS TO BE BOULDEN AND GO STRAIGHT IN",
+            "expect",
+            "expects"
+          ]
+        ],
+        "Other": [
+          [
+            "I COME FROM LANCASHIRE",
+            "I COME FROM LANCASTER",
+            "lancashire",
+            "lancaster"
+          ],
+          [
+            "OUT THERE IN THE FAIR",
+            "OUT THERE IN THE FIELD",
+            "fair",
+            "field"
+          ],
+          [
+            "THEN THE WHOLE PLACE WOULDN'T CATCH ON FIRE",
+            "THEN THE WHOLE PLACE WON'T CATCH ON FIRE",
+            "wouldnt",
+            "wont"
+          ],
+          [
+            "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+            "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+            "faces",
+            "fades"
+          ],
+          [
+            "WILL THE EXPERTS BE ABLE TO KEEP OUR TEAMS ON THE STRAIGHT AND NARROW AS THEY BROWSE THESE VAST",
+            "WILL THE EXPERTS BE ABLE TO KEEP OUR TEAMS ON THE STRAIGHT AND NEAR AS THEY BRO",
+            "narrow",
+            "near"
+          ]
+        ]
+      },
+      "stage3_categories": {
+        "Contextual": 2
+      },
+      "stage3_methods": {
+        "Option 3 (grammar)": 2
+      },
+      "stage3_examples": [
+        {
+          "ref_sentence": "THERE IS NO AIR SO THERE IS NO SOUND",
+          "hyp_sentence": "THERE IS NO AIR SO THEIR IS NO SOUND",
+          "ref_word": "there",
+          "hyp_word": "their",
+          "stage3_category": "Contextual",
+          "stage3_subcategory": "closed_class_dependency_mismatch",
+          "stage3_explanation": "'THEIR' is lexically restricted to the dependency role(s) [poss] (it can only modify or stand in for a following head noun / verb in that fixed way), but the parser places it here as [nsubj] — a role only a homophone counterpart could fill. Category: Contextual.",
+          "stage3_method": "Option 3 (grammar)"
+        },
+        {
+          "ref_sentence": "THEY SAY THERE'S A BUNCH OF FIFTH COLUMNISTS OVER THERE",
+          "hyp_sentence": "THEY SAY THERE'S A BUNCH OF 5 CALIBRE OVER THEIR",
+          "ref_word": "there",
+          "hyp_word": "their",
+          "stage3_category": "Contextual",
+          "stage3_subcategory": "closed_class_dependency_mismatch",
+          "stage3_explanation": "'THEIR' is lexically restricted to the dependency role(s) [poss] (it can only modify or stand in for a following head noun / verb in that fixed way), but the parser places it here as [pobj] — a role only a homophone counterpart could fill. Category: Contextual.",
+          "stage3_method": "Option 3 (grammar)"
+        }
+      ]
+    },
+    "non_homophone": {
+      "totals": {
+        "n_hits": 841,
+        "n_substitutions": 196,
+        "n_deletions": 40,
+        "n_insertions": 21
+      },
+      "substitution_categories": {
+        "Other": 175,
+        "Near-homophone": 21
+      },
+      "examples": {
+        "Homophone": [],
+        "Near-homophone": [
+          [
+            "THE CANAL IS A NICE RUN",
+            "THE CONAL IS AN EASY RUN",
+            "a",
+            "an"
+          ],
+          [
+            "TOOK OFF THE PIPE AND GAVE IT A SHAPE AND OUT FELL A HEDGEHOG WITH ITS NESTING MATERIAL",
+            "TO COFFEE THE PIPE AND GIVE IT SHAPE AND OUTFELL A HEDGEHOG WITH ITS NEXT",
+            "gave",
+            "give"
+          ],
+          [
+            "HE ACTUALLY THOUGHT OF THE INDIAN PEOPLE AS DEPRAVED",
+            "HE ACTUALLY THOUGHT A INDIA PEOPLE AS DEPRAVED",
+            "of",
+            "a"
+          ],
+          [
+            "DON'T BLOW YOUR TOP",
+            "DON'T BLEW YOUR TOP",
+            "blow",
+            "blew"
+          ],
+          [
+            "EXCITED ABOUT THE WEDDING",
+            "EXCITED ABOUT THE WEEDING",
+            "wedding",
+            "weeding"
+          ]
+        ],
+        "Other": [
+          [
+            "YOU'VE GOT THIS LARGE PLOT",
+            "YOU'VE GOT THIS LARGE PLAT",
+            "plot",
+            "plat"
+          ],
+          [
+            "HE WAS MY DIVORCE LAWYER FROM JACK RYAN",
+            "HE WAS MY DIVORCE LAWER FROM JACKRYNE",
+            "lawyer",
+            "lawer"
+          ],
+          [
+            "HE WAS MY DIVORCE LAWYER FROM JACK RYAN",
+            "HE WAS MY DIVORCE LAWER FROM JACKRYNE",
+            "jack",
+            "jackryne"
+          ],
+          [
+            "COURAGE AND CONVICTION",
+            "CEREGUIN AND CONVICTION",
+            "courage",
+            "cereguin"
+          ],
+          [
+            "THAT'S WHAT I'M SELLING",
+            "THAT'S WHAT I'M SAYING",
+            "selling",
+            "saying"
+          ]
+        ]
+      },
+      "stage3_categories": {},
+      "stage3_methods": {},
+      "stage3_examples": []
+    }
+  },
+  "sid": {
+    "word": {
+      "hits": 5803,
+      "substitutions": 987,
+      "insertions": 138,
+      "deletions": 288,
+      "wer": 0.19963266459451823
+    },
+    "char": {
+      "hits": 32471,
+      "substitutions": 1530,
+      "insertions": 913,
+      "deletions": 1657,
+      "cer": 0.11498121038757081
+    }
+  },
+  "aer": {
+    "n_substitutions": 1016,
+    "n_classified": 1016,
+    "n_insertions": 602,
+    "n_deletions": 2244,
+    "n_hits": 20802,
+    "place": 499,
+    "manner": 544,
+    "voicing": 273,
+    "place_pct": 49.11417322834646,
+    "manner_pct": 53.54330708661418,
+    "voicing_pct": 26.87007874015748
+  },
+  "wper_heuristic_pct": 13.788546255506795,
+  "wper_panphon_pct": 10.925589050589055
+}

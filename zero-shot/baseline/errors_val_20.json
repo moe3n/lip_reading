@@ -1,0 +1,168 @@
+{
+  "overall": {
+    "totals": {
+      "n_hits": 12,
+      "n_substitutions": 75,
+      "n_deletions": 24,
+      "n_insertions": 53
+    },
+    "substitution_categories": {
+      "Other": 74,
+      "Near-homophone": 1
+    },
+    "examples": {
+      "Homophone": [],
+      "Near-homophone": [
+        [
+          "WHEN MY HUSBAND AND I ARE NOT AROUND",
+          "When may I hand you a banana?",
+          "my",
+          "may"
+        ]
+      ],
+      "Other": [
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "for",
+          "they"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "me",
+          "say"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "the",
+          "whats"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "surprise",
+          "up"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "was",
+          "doc"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "homophone": {
+    "totals": {
+      "n_hits": 7,
+      "n_substitutions": 55,
+      "n_deletions": 18,
+      "n_insertions": 11
+    },
+    "substitution_categories": {
+      "Other": 54,
+      "Near-homophone": 1
+    },
+    "examples": {
+      "Homophone": [],
+      "Near-homophone": [
+        [
+          "WHEN MY HUSBAND AND I ARE NOT AROUND",
+          "When may I hand you a banana?",
+          "my",
+          "may"
+        ]
+      ],
+      "Other": [
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "for",
+          "they"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "me",
+          "say"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "the",
+          "whats"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "surprise",
+          "up"
+        ],
+        [
+          "AND FOR ME THE SURPRISE WAS",
+          "And they say, \"What's up, Doc?",
+          "was",
+          "doc"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "non_homophone": {
+    "totals": {
+      "n_hits": 5,
+      "n_substitutions": 20,
+      "n_deletions": 6,
+      "n_insertions": 42
+    },
+    "substitution_categories": {
+      "Other": 20
+    },
+    "examples": {
+      "Homophone": [],
+      "Near-homophone": [],
+      "Other": [
+        [
+          "THEY'RE MOVING AROUND",
+          "The reason why I'm running is because I'm a runner.",
+          "theyre",
+          "im"
+        ],
+        [
+          "THEY'RE MOVING AROUND",
+          "The reason why I'm running is because I'm a runner.",
+          "moving",
+          "a"
+        ],
+        [
+          "THEY'RE MOVING AROUND",
+          "The reason why I'm running is because I'm a runner.",
+          "around",
+          "runner"
+        ],
+        [
+          "SORT OF SECOND HALF OF OCTOBER",
+          "Sartahvafaktover",
+          "sort",
+          "sartahvafaktover"
+        ],
+        [
+          "WELL INTO NOVEMBER",
+          "Well, I'm not sure what you mean by that. I'm not a computer scientist.",
+          "into",
+          "computer"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  }
+}

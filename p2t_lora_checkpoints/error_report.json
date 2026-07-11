@@ -1,0 +1,573 @@
+{
+  "overall": {
+    "totals": {
+      "n_hits": 5803,
+      "n_substitutions": 987,
+      "n_deletions": 288,
+      "n_insertions": 138
+    },
+    "substitution_categories": {
+      "Other": 828,
+      "Near-homophone": 133,
+      "Homophone": 26
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+          "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+          "lots",
+          "lotts"
+        ],
+        [
+          "THERE IS NO AIR SO THERE IS NO SOUND",
+          "THERE IS NO AIR SO THEIR IS NO SOUND",
+          "there",
+          "their"
+        ],
+        [
+          "THEIR INJURIES CAN BE LIFE CHANGING",
+          "THERE INJURIES CAN BE LIFECHANGING",
+          "their",
+          "there"
+        ],
+        [
+          "THE NATION PAUSED FOR A TWO MINUTE SILENCE",
+          "THE NAISHA POSED FOUR QUESTIONS",
+          "for",
+          "four"
+        ],
+        [
+          "WHICH I HAVE ABOUT MY PERSON HERE",
+          "WHICH I HAVE ABOUT MY PERSONAL HEAR",
+          "here",
+          "hear"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+          "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+          "chock",
+          "check"
+        ],
+        [
+          "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+          "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+          "a",
+          "an"
+        ],
+        [
+          "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+          "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+          "says",
+          "said"
+        ],
+        [
+          "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+          "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+          "a",
+          "us"
+        ],
+        [
+          "YOU MIGHT EXPECT SUCCESSFUL OPPORTUNISTIC ANIMALS TO BE BOLD AND GO STRAIGHT IN",
+          "YOU MAY EXPECTS SUCCESSFUL OPERATIONS TO BE BOULDEN AND GO STRAIGHT IN",
+          "expect",
+          "expects"
+        ]
+      ],
+      "Other": [
+        [
+          "I COME FROM LANCASHIRE",
+          "I COME FROM LANCASTER",
+          "lancashire",
+          "lancaster"
+        ],
+        [
+          "OUT THERE IN THE FAIR",
+          "OUT THERE IN THE FIELD",
+          "fair",
+          "field"
+        ],
+        [
+          "THEN THE WHOLE PLACE WOULDN'T CATCH ON FIRE",
+          "THEN THE WHOLE PLACE WON'T CATCH ON FIRE",
+          "wouldnt",
+          "wont"
+        ],
+        [
+          "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+          "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+          "faces",
+          "fades"
+        ],
+        [
+          "WILL THE EXPERTS BE ABLE TO KEEP OUR TEAMS ON THE STRAIGHT AND NARROW AS THEY BROWSE THESE VAST",
+          "WILL THE EXPERTS BE ABLE TO KEEP OUR TEAMS ON THE STRAIGHT AND NEAR AS THEY BRO",
+          "narrow",
+          "near"
+        ]
+      ]
+    },
+    "stage3_categories": {
+      "Phonological": 6,
+      "Lexical": 151,
+      "Contextual": 2
+    },
+    "stage3_methods": {
+      "Option 5 (LLM judge)": 157,
+      "Option 3 (grammar)": 2
+    },
+    "stage3_examples": [
+      {
+        "ref_sentence": "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+        "hyp_sentence": "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+        "ref_word": "chock",
+        "hyp_word": "check",
+        "stage3_category": "Phonological",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"check\" and \"chock\" are homophones, words that are pronounced the same but have different meanings and spellings, with \"check\" referring to a test or inspection, and \"chock\" meaning completely full or packed.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+        "hyp_sentence": "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+        "ref_word": "a",
+        "hyp_word": "an",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"a\" and \"an\" are homophones, words that are pronounced the same but have different meanings and spellings, with \"a\" typically used before nouns that start with a consonant sound and \"an\" used before nouns that start with a vowel sound.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+        "hyp_sentence": "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+        "ref_word": "lots",
+        "hyp_word": "lotts",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"a\" and \"an\" are homophones, words that are pronounced the same but have different meanings and spellings, with \"a\" typically used before nouns that start with a consonant sound and \"an\" used before nouns that start with a vowel sound.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THERE IS NO AIR SO THERE IS NO SOUND",
+        "hyp_sentence": "THERE IS NO AIR SO THEIR IS NO SOUND",
+        "ref_word": "there",
+        "hyp_word": "their",
+        "stage3_category": "Contextual",
+        "stage3_subcategory": "closed_class_dependency_mismatch",
+        "stage3_explanation": "'THEIR' is lexically restricted to the dependency role(s) [poss] (it can only modify or stand in for a following head noun / verb in that fixed way), but the parser places it here as [nsubj] — a role only a homophone counterpart could fill. Category: Contextual.",
+        "stage3_method": "Option 3 (grammar)"
+      },
+      {
+        "ref_sentence": "THEIR INJURIES CAN BE LIFE CHANGING",
+        "hyp_sentence": "THERE INJURIES CAN BE LIFECHANGING",
+        "ref_word": "their",
+        "hyp_word": "there",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error is a homophone error, where the words \"their\" and \"there\" are used interchangeably, with \"their\" referring to a possessive pronoun and \"there\" indicating a location, resulting in a change in meaning.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+        "hyp_sentence": "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+        "ref_word": "says",
+        "hyp_word": "said",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"give\" and \"gave\" are homophones, words that are pronounced the same but have different meanings and grammatical functions, with \"give\" being the present tense of the verb \"give\" and \"gave\" being the past tense.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+        "hyp_sentence": "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+        "ref_word": "a",
+        "hyp_word": "us",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"give\" and \"gave\" are homophones, words that are pronounced the same but have different meanings and grammatical functions, with \"give\" being the present tense of the verb \"give\" and \"gave\" being the past tense.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "YOU MIGHT EXPECT SUCCESSFUL OPPORTUNISTIC ANIMALS TO BE BOLD AND GO STRAIGHT IN",
+        "hyp_sentence": "YOU MAY EXPECTS SUCCESSFUL OPERATIONS TO BE BOULDEN AND GO STRAIGHT IN",
+        "ref_word": "expect",
+        "hyp_word": "expects",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Word choice",
+        "stage3_explanation": "The error occurs because \"bold\" and \"boulden\" are homophones, words that are pronounced similarly but have different meanings and spellings, with \"bold\" typically meaning confident or courageous, and \"boulden\" not being a standard English word.",
+        "stage3_method": "Option 5 (LLM judge)"
+      }
+    ]
+  },
+  "homophone": {
+    "totals": {
+      "n_hits": 4962,
+      "n_substitutions": 791,
+      "n_deletions": 248,
+      "n_insertions": 117
+    },
+    "substitution_categories": {
+      "Other": 653,
+      "Near-homophone": 112,
+      "Homophone": 26
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+          "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+          "lots",
+          "lotts"
+        ],
+        [
+          "THERE IS NO AIR SO THERE IS NO SOUND",
+          "THERE IS NO AIR SO THEIR IS NO SOUND",
+          "there",
+          "their"
+        ],
+        [
+          "THEIR INJURIES CAN BE LIFE CHANGING",
+          "THERE INJURIES CAN BE LIFECHANGING",
+          "their",
+          "there"
+        ],
+        [
+          "THE NATION PAUSED FOR A TWO MINUTE SILENCE",
+          "THE NAISHA POSED FOUR QUESTIONS",
+          "for",
+          "four"
+        ],
+        [
+          "WHICH I HAVE ABOUT MY PERSON HERE",
+          "WHICH I HAVE ABOUT MY PERSONAL HEAR",
+          "here",
+          "hear"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+          "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+          "chock",
+          "check"
+        ],
+        [
+          "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+          "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+          "a",
+          "an"
+        ],
+        [
+          "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+          "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+          "says",
+          "said"
+        ],
+        [
+          "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+          "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+          "a",
+          "us"
+        ],
+        [
+          "YOU MIGHT EXPECT SUCCESSFUL OPPORTUNISTIC ANIMALS TO BE BOLD AND GO STRAIGHT IN",
+          "YOU MAY EXPECTS SUCCESSFUL OPERATIONS TO BE BOULDEN AND GO STRAIGHT IN",
+          "expect",
+          "expects"
+        ]
+      ],
+      "Other": [
+        [
+          "I COME FROM LANCASHIRE",
+          "I COME FROM LANCASTER",
+          "lancashire",
+          "lancaster"
+        ],
+        [
+          "OUT THERE IN THE FAIR",
+          "OUT THERE IN THE FIELD",
+          "fair",
+          "field"
+        ],
+        [
+          "THEN THE WHOLE PLACE WOULDN'T CATCH ON FIRE",
+          "THEN THE WHOLE PLACE WON'T CATCH ON FIRE",
+          "wouldnt",
+          "wont"
+        ],
+        [
+          "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+          "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+          "faces",
+          "fades"
+        ],
+        [
+          "WILL THE EXPERTS BE ABLE TO KEEP OUR TEAMS ON THE STRAIGHT AND NARROW AS THEY BROWSE THESE VAST",
+          "WILL THE EXPERTS BE ABLE TO KEEP OUR TEAMS ON THE STRAIGHT AND NEAR AS THEY BRO",
+          "narrow",
+          "near"
+        ]
+      ]
+    },
+    "stage3_categories": {
+      "Phonological": 6,
+      "Lexical": 130,
+      "Contextual": 2
+    },
+    "stage3_methods": {
+      "Option 5 (LLM judge)": 136,
+      "Option 3 (grammar)": 2
+    },
+    "stage3_examples": [
+      {
+        "ref_sentence": "AND OUR GREEN ROOM IS CHOCK FULL OF BEAUTIFUL FACES TONIGHT",
+        "hyp_sentence": "AND OUR GREEN ROOM IS CHECK FULL OF BEAUTIFUL FADES TONIGHT",
+        "ref_word": "chock",
+        "hyp_word": "check",
+        "stage3_category": "Phonological",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"check\" and \"chock\" are homophones, words that are pronounced the same but have different meanings and spellings, with \"check\" referring to a test or inspection, and \"chock\" meaning completely full or packed.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+        "hyp_sentence": "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+        "ref_word": "a",
+        "hyp_word": "an",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"a\" and \"an\" are homophones, words that are pronounced the same but have different meanings and spellings, with \"a\" typically used before nouns that start with a consonant sound and \"an\" used before nouns that start with a vowel sound.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THEY WOULD HAVE A NUMBER OF EYEPIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTS OF",
+        "hyp_sentence": "THEY WOULD HAVE AN NUMBER OF PIECES AND SLIDES AND THINGS THAT WENT WITH THEM AND LOTTS OF",
+        "ref_word": "lots",
+        "hyp_word": "lotts",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"a\" and \"an\" are homophones, words that are pronounced the same but have different meanings and spellings, with \"a\" typically used before nouns that start with a consonant sound and \"an\" used before nouns that start with a vowel sound.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THERE IS NO AIR SO THERE IS NO SOUND",
+        "hyp_sentence": "THERE IS NO AIR SO THEIR IS NO SOUND",
+        "ref_word": "there",
+        "hyp_word": "their",
+        "stage3_category": "Contextual",
+        "stage3_subcategory": "closed_class_dependency_mismatch",
+        "stage3_explanation": "'THEIR' is lexically restricted to the dependency role(s) [poss] (it can only modify or stand in for a following head noun / verb in that fixed way), but the parser places it here as [nsubj] — a role only a homophone counterpart could fill. Category: Contextual.",
+        "stage3_method": "Option 3 (grammar)"
+      },
+      {
+        "ref_sentence": "THEIR INJURIES CAN BE LIFE CHANGING",
+        "hyp_sentence": "THERE INJURIES CAN BE LIFECHANGING",
+        "ref_word": "their",
+        "hyp_word": "there",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error is a homophone error, where the words \"their\" and \"there\" are used interchangeably, with \"their\" referring to a possessive pronoun and \"there\" indicating a location, resulting in a change in meaning.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+        "hyp_sentence": "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+        "ref_word": "says",
+        "hyp_word": "said",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"give\" and \"gave\" are homophones, words that are pronounced the same but have different meanings and grammatical functions, with \"give\" being the present tense of the verb \"give\" and \"gave\" being the past tense.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "THE AUCTION CATALOGUE SAYS IT WOULD GIVE A POTENTIAL PURCHASER AN IDEAL OPPORTUNITY TO CARRY OUT",
+        "hyp_sentence": "THE AUCTION CATALOGUE SAID IT WOULD GIVEN US AN ECONOMIC PURCHASER IN A",
+        "ref_word": "a",
+        "hyp_word": "us",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"give\" and \"gave\" are homophones, words that are pronounced the same but have different meanings and grammatical functions, with \"give\" being the present tense of the verb \"give\" and \"gave\" being the past tense.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "YOU MIGHT EXPECT SUCCESSFUL OPPORTUNISTIC ANIMALS TO BE BOLD AND GO STRAIGHT IN",
+        "hyp_sentence": "YOU MAY EXPECTS SUCCESSFUL OPERATIONS TO BE BOULDEN AND GO STRAIGHT IN",
+        "ref_word": "expect",
+        "hyp_word": "expects",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Word choice",
+        "stage3_explanation": "The error occurs because \"bold\" and \"boulden\" are homophones, words that are pronounced similarly but have different meanings and spellings, with \"bold\" typically meaning confident or courageous, and \"boulden\" not being a standard English word.",
+        "stage3_method": "Option 5 (LLM judge)"
+      }
+    ]
+  },
+  "non_homophone": {
+    "totals": {
+      "n_hits": 841,
+      "n_substitutions": 196,
+      "n_deletions": 40,
+      "n_insertions": 21
+    },
+    "substitution_categories": {
+      "Other": 175,
+      "Near-homophone": 21
+    },
+    "examples": {
+      "Homophone": [],
+      "Near-homophone": [
+        [
+          "THE CANAL IS A NICE RUN",
+          "THE CONAL IS AN EASY RUN",
+          "a",
+          "an"
+        ],
+        [
+          "TOOK OFF THE PIPE AND GAVE IT A SHAPE AND OUT FELL A HEDGEHOG WITH ITS NESTING MATERIAL",
+          "TO COFFEE THE PIPE AND GIVE IT SHAPE AND OUTFELL A HEDGEHOG WITH ITS NEXT",
+          "gave",
+          "give"
+        ],
+        [
+          "HE ACTUALLY THOUGHT OF THE INDIAN PEOPLE AS DEPRAVED",
+          "HE ACTUALLY THOUGHT A INDIA PEOPLE AS DEPRAVED",
+          "of",
+          "a"
+        ],
+        [
+          "DON'T BLOW YOUR TOP",
+          "DON'T BLEW YOUR TOP",
+          "blow",
+          "blew"
+        ],
+        [
+          "EXCITED ABOUT THE WEDDING",
+          "EXCITED ABOUT THE WEEDING",
+          "wedding",
+          "weeding"
+        ]
+      ],
+      "Other": [
+        [
+          "YOU'VE GOT THIS LARGE PLOT",
+          "YOU'VE GOT THIS LARGE PLAT",
+          "plot",
+          "plat"
+        ],
+        [
+          "HE WAS MY DIVORCE LAWYER FROM JACK RYAN",
+          "HE WAS MY DIVORCE LAWER FROM JACKRYNE",
+          "lawyer",
+          "lawer"
+        ],
+        [
+          "HE WAS MY DIVORCE LAWYER FROM JACK RYAN",
+          "HE WAS MY DIVORCE LAWER FROM JACKRYNE",
+          "jack",
+          "jackryne"
+        ],
+        [
+          "COURAGE AND CONVICTION",
+          "CEREGUIN AND CONVICTION",
+          "courage",
+          "cereguin"
+        ],
+        [
+          "THAT'S WHAT I'M SELLING",
+          "THAT'S WHAT I'M SAYING",
+          "selling",
+          "saying"
+        ]
+      ]
+    },
+    "stage3_categories": {
+      "Lexical": 21
+    },
+    "stage3_methods": {
+      "Option 5 (LLM judge)": 21
+    },
+    "stage3_examples": [
+      {
+        "ref_sentence": "THE CANAL IS A NICE RUN",
+        "hyp_sentence": "THE CONAL IS AN EASY RUN",
+        "ref_word": "a",
+        "hyp_word": "an",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error is a homophone error because \"canal\" and \"conal\" are words that are pronounced similarly but have different meanings, with \"canal\" referring to a waterway and \"conal\" not being a word in English, but \"conal\" is a suffix used in words like \"conal\" (meaning relating to a cone) or \"conal\" (meaning relating to a cone), but \"",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "TOOK OFF THE PIPE AND GAVE IT A SHAPE AND OUT FELL A HEDGEHOG WITH ITS NESTING MATERIAL",
+        "hyp_sentence": "TO COFFEE THE PIPE AND GIVE IT SHAPE AND OUTFELL A HEDGEHOG WITH ITS NEXT",
+        "ref_word": "gave",
+        "hyp_word": "give",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"TOOK\" and \"TO COFFEE\" are homophones, words that are pronounced the same but have different meanings and spellings, leading to a substitution of one word for the other in the sentence.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "HE ACTUALLY THOUGHT OF THE INDIAN PEOPLE AS DEPRAVED",
+        "hyp_sentence": "HE ACTUALLY THOUGHT A INDIA PEOPLE AS DEPRAVED",
+        "ref_word": "of",
+        "hyp_word": "a",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Word choice",
+        "stage3_explanation": "The error is a case of lexical choice, where the words \"HE\" and \"THE\" are used incorrectly, with \"he\" referring to a person and \"the\" referring to a group, indicating a mistake in selecting the correct antecedent for the pronoun.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "DON'T BLOW YOUR TOP",
+        "hyp_sentence": "DON'T BLEW YOUR TOP",
+        "ref_word": "blow",
+        "hyp_word": "blew",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The words \"blow\" and \"blew\" are homophones, which are words that are pronounced the same but have different meanings and spellings, leading to the error in the prediction.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "EXCITED ABOUT THE WEDDING",
+        "hyp_sentence": "EXCITED ABOUT THE WEEDING",
+        "ref_word": "wedding",
+        "hyp_word": "weeding",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"Ground Truth\" and \"Ground Weed\" are homophones, words that are pronounced the same but have different meanings and spellings.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "CERTAINLY WITHOUT THE INDIAN ARMY CONTRIBUTION AND",
+        "hyp_sentence": "CERTAINLY WITHOUT THE INDIA ARMY CONTRIBUTION AND",
+        "ref_word": "indian",
+        "hyp_word": "india",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error is due to the similarity in spelling between \"Ground Truth\" and \"Certain\", which are homophones, a pair of words that are pronounced the same but have different meanings and spellings.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "A BUNCH OF DODDERY OLD FOOLS OBSESSED WITH BEATING THE GERMANS",
+        "hyp_sentence": "A BUNCH OF DAUDERY OLD FOOLS OBSESS WITH BEATING THE GERMANS",
+        "ref_word": "obsessed",
+        "hyp_word": "obsess",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error occurs because \"bunch\" and \"daudery\" are homophones, words that are pronounced similarly but have different meanings and spellings.",
+        "stage3_method": "Option 5 (LLM judge)"
+      },
+      {
+        "ref_sentence": "IT'S A GREAT THING",
+        "hyp_sentence": "IT'S A GREAT THINK",
+        "ref_word": "thing",
+        "hyp_word": "think",
+        "stage3_category": "Lexical",
+        "stage3_subcategory": "Homophone",
+        "stage3_explanation": "The error is a homophone error, where the words \"great\" and \"think\" are pronounced similarly but have different meanings, leading to a misinterpretation of the intended message.",
+        "stage3_method": "Option 5 (LLM judge)"
+      }
+    ]
+  }
+}

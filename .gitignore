@@ -2,6 +2,16 @@ __pycache__/
 *.pyc
 dryrun_checkpoints/
 checkpoints/
+direct_baseline_out/
+*.log
+~$*
+# Model weights + regenerable base-model tokenizer: never in git (1.5GB each).
+# Small results under p2t_lora_checkpoints/ (metrics, predictions, reports,
+# Results/) are kept — only the large binaries are excluded.
+*.safetensors
+p2t_lora_checkpoints*/tokenizer.json
+# Peer students' shared material — kept locally for comparison, not versioned.
+Other student's work/
 .venv/
 venv/
 venv2/

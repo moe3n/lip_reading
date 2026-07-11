@@ -1,0 +1,55 @@
+Diagnosis record — 2026-07-10, before the MAX_INPUT_LEN fix
+=============================================================
+Trigger: train split, ZS_LIMIT=5000, both modes, EM=0.00% for "raw"
+(0.20% for "clean") — metrics.csv looked like total zero-shot failure,
+investigated to see whether it was a real result or a bug.
+
+1. Prediction distribution (5,000 rows each)
+---------------------------------------------
+raw mode: ALL 5,000 rows predicted the exact same string:
+    "the number of words in it."
+-> deterministic, content-independent output. Not noise — a collapse.
+
+clean mode: varied but mostly unrelated fluent sentences, e.g.
+    242x "This is a test."
+    123x echoes part of the instruction text itself back as the answer
+    107x "This is a sentence."
+     88x "This is a test of the emergency broadcast system."
+-> plausible English, but disconnected from the phoneme content —
+   consistent with a non-instruction-tuned base model free-associating.
+
+2. Prompt token-length check (tokenizer only, no model load)
+--------------------------------------------------------------
+Old MAX_INPUT_LEN = 96, truncation_side = "right" (HF default).
+
+5,000-row sample:
+  clean: mean=73.8  max=138  min=55   pct_over_96=8.9%
+  raw:   mean=172.3 max=302  min=133  pct_over_96=100.0%
+
+Full 48,164-row corpus:
+  clean: mean=73.8  p99=119  max=138
+  raw:   mean=172.3 p99=268  max=302
+
+3. Root cause confirmed directly
+-----------------------------------
+Tokenized a real raw prompt, truncated to 96 tokens right-side, decoded
+the tail:
+    "...stress. Convert the phonemes into the English sentence they
+    spell out. Reply with only that sentence and"
+-> truncated prompt never reaches "Phonemes: <content>\nText:" at all.
+   The model sees a dangling, content-free instruction fragment on
+   every single raw-mode row -- hence the identical output regardless
+   of input.
+
+clean mode's 8.9% overflow rows lose the "Text:" cue the same way, just
+far less often (96 was originally sized for clean phonemes specifically —
+see loader.py's clean_phoneme_seq() docstring).
+
+Fix applied (run_baseline.py): MAX_INPUT_LEN raised to 320 (covers both
+modes' full-corpus max of 302 with margin) + tok.truncation_side="left"
+as a backstop so any future overflow eats into the instruction, never
+the "Phonemes: ...\nText:" cue.
+
+Old preds_train_5000_{clean,raw}.jsonl were deleted (not just resumed
+over) since resume-by-line-count would otherwise have silently kept
+this broken data.
