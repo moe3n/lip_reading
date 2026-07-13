@@ -1,0 +1,302 @@
+{
+  "overall": {
+    "totals": {
+      "n_hits": 5720,
+      "n_substitutions": 83,
+      "n_deletions": 9,
+      "n_insertions": 13
+    },
+    "substitution_categories": {
+      "Other": 63,
+      "Near-homophone": 9,
+      "Homophone": 11
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "OR MORE CORRECTLY COUNCILS",
+          "OR MORE CORRECTLY COUNSELS",
+          "councils",
+          "counsels"
+        ],
+        [
+          "MR KHAN SPEAKING",
+          "MR CON SPEAKING",
+          "khan",
+          "con"
+        ],
+        [
+          "GREAT LEONARD COHEN",
+          "GREAT LENARD COHEN",
+          "leonard",
+          "lenard"
+        ],
+        [
+          "GRAHAM BARON ASH",
+          "GRAHAM BARRON AS",
+          "baron",
+          "barron"
+        ],
+        [
+          "WE HAVE THE DELECTABLE NEIL JONES",
+          "WE HAVE THE DELICATEABLE NEAL JONES",
+          "neil",
+          "neal"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "WE HAVE TO LOOK AT HOW SAUDI ARABIA",
+          "WE HAVE TO LOOK AT HOUSE AUDIERE ABY",
+          "how",
+          "house"
+        ],
+        [
+          "THE PERFECT PINT",
+          "THE PERFECT PAINT",
+          "pint",
+          "paint"
+        ],
+        [
+          "WE HEARD THE STORY OF THE NURSE ANNA CROSS",
+          "WE HEARD THE STORY OF THE NURSE ANNE ACROSS",
+          "anna",
+          "anne"
+        ],
+        [
+          "WE HEARD THE STORY OF THE NURSE ANNA CROSS",
+          "WE HEARD THE STORY OF THE NURSE ANNE ACROSS",
+          "cross",
+          "across"
+        ],
+        [
+          "WHICH UPSET SOME OF OUR FEMALE RESIDENTS",
+          "WHICH UPSETS SOME OF OUR FEMALE RESIDENTS",
+          "upset",
+          "upsets"
+        ]
+      ],
+      "Other": [
+        [
+          "A LITTLE SAXIFRAGE",
+          "A LITTLE SAXOPHONE RAG",
+          "saxifrage",
+          "rag"
+        ],
+        [
+          "SQUIRREL POX VIRUS",
+          "SQUIRELL POX VIRUS",
+          "squirrel",
+          "squirell"
+        ],
+        [
+          "ADD ANOTHER TEN ON",
+          "ADD ANOTHER 10 ON",
+          "ten",
+          "10"
+        ],
+        [
+          "BUT THE WALDORF ASTORIA",
+          "BUT THE WALLDORF STORY",
+          "waldorf",
+          "walldorf"
+        ],
+        [
+          "BUT THE WALDORF ASTORIA",
+          "BUT THE WALLDORF STORY",
+          "astoria",
+          "story"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "homophone": {
+    "totals": {
+      "n_hits": 4367,
+      "n_substitutions": 62,
+      "n_deletions": 6,
+      "n_insertions": 10
+    },
+    "substitution_categories": {
+      "Other": 45,
+      "Near-homophone": 7,
+      "Homophone": 10
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "OR MORE CORRECTLY COUNCILS",
+          "OR MORE CORRECTLY COUNSELS",
+          "councils",
+          "counsels"
+        ],
+        [
+          "MR KHAN SPEAKING",
+          "MR CON SPEAKING",
+          "khan",
+          "con"
+        ],
+        [
+          "GRAHAM BARON ASH",
+          "GRAHAM BARRON AS",
+          "baron",
+          "barron"
+        ],
+        [
+          "WE HAVE THE DELECTABLE NEIL JONES",
+          "WE HAVE THE DELICATEABLE NEAL JONES",
+          "neil",
+          "neal"
+        ],
+        [
+          "I WANT TO TALK ABOUT DADDY TOO",
+          "I WANT TO TALK ABOUT DADDY TO",
+          "too",
+          "to"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "WE HAVE TO LOOK AT HOW SAUDI ARABIA",
+          "WE HAVE TO LOOK AT HOUSE AUDIERE ABY",
+          "how",
+          "house"
+        ],
+        [
+          "WE HEARD THE STORY OF THE NURSE ANNA CROSS",
+          "WE HEARD THE STORY OF THE NURSE ANNE ACROSS",
+          "anna",
+          "anne"
+        ],
+        [
+          "WE HEARD THE STORY OF THE NURSE ANNA CROSS",
+          "WE HEARD THE STORY OF THE NURSE ANNE ACROSS",
+          "cross",
+          "across"
+        ],
+        [
+          "WHICH UPSET SOME OF OUR FEMALE RESIDENTS",
+          "WHICH UPSETS SOME OF OUR FEMALE RESIDENTS",
+          "upset",
+          "upsets"
+        ],
+        [
+          "GRAHAM BARON ASH",
+          "GRAHAM BARRON AS",
+          "ash",
+          "as"
+        ]
+      ],
+      "Other": [
+        [
+          "ADD ANOTHER TEN ON",
+          "ADD ANOTHER 10 ON",
+          "ten",
+          "10"
+        ],
+        [
+          "BUT THE WALDORF ASTORIA",
+          "BUT THE WALLDORF STORY",
+          "waldorf",
+          "walldorf"
+        ],
+        [
+          "BUT THE WALDORF ASTORIA",
+          "BUT THE WALLDORF STORY",
+          "astoria",
+          "story"
+        ],
+        [
+          "THERE IS NO AIR SO THERE IS NO SOUND",
+          "THERE IS NO AIR SO THERE IS_NO SOUND",
+          "is",
+          "is_no"
+        ],
+        [
+          "WHICH IS ONLY 10 MINUTES AWAY",
+          "WHICH IS ONLY TEN MINUTES AWAY",
+          "10",
+          "ten"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "non_homophone": {
+    "totals": {
+      "n_hits": 1353,
+      "n_substitutions": 21,
+      "n_deletions": 3,
+      "n_insertions": 3
+    },
+    "substitution_categories": {
+      "Other": 18,
+      "Near-homophone": 2,
+      "Homophone": 1
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "GREAT LEONARD COHEN",
+          "GREAT LENARD COHEN",
+          "leonard",
+          "lenard"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "THE PERFECT PINT",
+          "THE PERFECT PAINT",
+          "pint",
+          "paint"
+        ],
+        [
+          "AND WITH STEALTH",
+          "AND WITH STELLA",
+          "stealth",
+          "stella"
+        ]
+      ],
+      "Other": [
+        [
+          "A LITTLE SAXIFRAGE",
+          "A LITTLE SAXOPHONE RAG",
+          "saxifrage",
+          "rag"
+        ],
+        [
+          "SQUIRREL POX VIRUS",
+          "SQUIRELL POX VIRUS",
+          "squirrel",
+          "squirell"
+        ],
+        [
+          "AND INFLAMMATORY PHOTOGRAPH",
+          "AND IN FLAMENCO PHOTOGRAPH",
+          "inflammatory",
+          "flamenco"
+        ],
+        [
+          "THAT MAKES A GRAND TOTAL OF SIX",
+          "THAT MAKES A GRAND TOTAL OF 6",
+          "six",
+          "6"
+        ],
+        [
+          "THIS IS SOUTH WELL",
+          "THIS IS SOUTHWELL",
+          "south",
+          "southwell"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  }
+}
