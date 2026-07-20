@@ -1,0 +1,10 @@
+bucket,n,pct_of_em_false
+homophone_substitution,33,43.42
+non_word_spelling,17,22.37
+boundary_hallucination,11,14.47
+digit_word_rendering,5,6.58
+semantic_substitution,4,5.26
+oov_target_substitution,3,3.95
+truncation,2,2.63
+suffix_hallucination,1,1.32
+TOTAL,76,100.00

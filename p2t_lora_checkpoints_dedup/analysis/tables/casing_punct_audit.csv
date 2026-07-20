@@ -1,0 +1,5 @@
+exact_match,flag,n
+True,uppercase_word_present,860
+True,contains_digit,13
+False,uppercase_word_present,72
+False,contains_digit,4

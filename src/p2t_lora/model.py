@@ -108,6 +108,51 @@ def load_tokenizer(model_name: str):
     return tokenizer
 
 
+def patch_bnb_safe_to():
+    """Let accelerate's `dispatch_model` move a 4-bit bnb model. Idempotent.
+
+    Needed whenever CUDA_VISIBLE_DEVICES pins a SINGLE GPU. accelerate resolves
+    `device_map="auto"` to one unique device, takes its single-GPU branch, and
+    calls `model.to(device)` on the whole 4-bit model, which transformers
+    rejects with:
+        ValueError: .to is not supported for 4-bit or 8-bit bitsandbytes models
+
+    With both GPUs visible the model is split across cards, accelerate takes its
+    multi-GPU branch and never calls .to(), which is why unpinned runs work --
+    but splitting a 3B model over PCIe is far slower than keeping it on one card.
+
+    The fix masks `quantization_method` for the duration of the original .to()
+    call so transformers lets it through. bnb 0.43.2+ can move 4-bit Linear
+    layers itself, so the move is safe. Skipping the move instead is not an
+    option: non-Linear submodules (LlamaRotaryEmbedding's `inv_freq` buffer)
+    stay on CPU and forward passes then fail with a device mismatch.
+
+    Ported from zero-shot/run_baseline.py:_patch_bnb_safe_to(), where this was
+    first diagnosed. That copy is left in place so the zero-shot script keeps
+    working standalone.
+    """
+    from transformers.modeling_utils import PreTrainedModel
+    if getattr(PreTrainedModel, "_bnb_safe_to_patched", False):
+        return
+    _orig = PreTrainedModel.to
+
+    def _safe_to(self, *args, **kwargs):
+        if (self.__class__.__name__ == "LlamaForCausalLM"
+                or getattr(self, "is_loaded_in_4bit", False)
+                or getattr(self, "is_loaded_in_8bit", False)):
+            saved = self.__dict__.get("quantization_method", None)
+            try:
+                self.quantization_method = None
+                return _orig(self, *args, **kwargs)
+            finally:
+                if saved is not None:
+                    self.quantization_method = saved
+        return _orig(self, *args, **kwargs)
+
+    PreTrainedModel.to = _safe_to
+    PreTrainedModel._bnb_safe_to_patched = True
+
+
 def load_model_with_lora(model_name: str,
                           lora_r: int = 8,
                           lora_alpha: int = 16,
@@ -125,6 +170,9 @@ def load_model_with_lora(model_name: str,
     """
     quant_config = None
     if USE_4BIT:
+        # Required when a single GPU is pinned via CUDA_VISIBLE_DEVICES --
+        # see patch_bnb_safe_to()'s docstring.
+        patch_bnb_safe_to()
         quant_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",

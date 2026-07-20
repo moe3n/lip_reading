@@ -106,6 +106,7 @@ import os
 import sys
 import time
 import json
+import random
 import pandas as pd
 import torch
 import torch.nn.functional as F
@@ -118,6 +119,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from p2t_lora.data import loader as data_loader          # noqa: E402
 from p2t_lora.data import g2p                              # noqa: E402
 from p2t_lora.augmentation.hard_negatives import generate_hard_negatives  # noqa: E402
+from p2t_lora.augmentation.phoneme_noise import (            # noqa: E402
+    corrupt_random, phoneme_inventory,
+)
 from p2t_lora.model import (                               # noqa: E402
     load_tokenizer, load_model_with_lora, MODEL_NAME_DRYRUN, DEVICE, USE_4BIT,
 )
@@ -198,6 +202,22 @@ CFG = {
     # Decoding is post-training -- this can also be changed and re-run on a
     # saved checkpoint without retraining anything.
     "num_beams":          _env_int("CPT_NUM_BEAMS", 1),
+    # Noise-augmented training (added 17 Jul 2026). Corrupts the phoneme INPUT
+    # of training examples only -- validation is never corrupted, so every
+    # number stays comparable to the clean runs. noise_prob=0 (default) is the
+    # existing clean-training behaviour, unchanged.
+    #   noise_prob      fraction of training examples that get corrupted
+    #   noise_rate_min/max  corruption rate range, sampled per example
+    # See augmentation/phoneme_noise.py for what the corruptions are and why.
+    "noise_prob":         _env_float("CPT_NOISE_PROB", 0.0),
+    "noise_rate_min":     _env_float("CPT_NOISE_RATE_MIN", 0.05),
+    "noise_rate_max":     _env_float("CPT_NOISE_RATE_MAX", 0.15),
+    "noise_seed":         _env_int("CPT_NOISE_SEED", 42),
+    # Global training seed (added 17 Jul 2026). Fixes DataLoader shuffle order
+    # and LoRA initialisation so a run is exactly reproducible, not merely
+    # stable. The two earlier clean runs landed within 0.0002 train loss of
+    # each other unseeded, so this changes reproducibility, not results.
+    "seed":               _env_int("CPT_SEED", 42),
     "batch_size":         _env_int("CPT_BATCH_SIZE", 2),
     "grad_accumulation":  _env_int("CPT_GRAD_ACCUM", 2),
     "learning_rate":      _env_float("CPT_LEARNING_RATE", 2e-4),
@@ -255,14 +275,37 @@ class CPTDataset(Dataset):
         neg_input_ids / neg_attention_mask — DISABLED, see __init__ below.
     """
 
-    def __init__(self, df, tokenizer, homo_set, max_input=96, max_target=32):
+    def __init__(self, df, tokenizer, homo_set, max_input=96, max_target=32,
+                 noise=None):
+        """
+        noise: None (clean, the default) or a dict with keys prob / rate_min /
+        rate_max / seed / inventory. Passed for the TRAINING split only -- the
+        validation split must stay clean or the metrics stop being comparable
+        to every earlier run.
+
+        ponytail: corruption is applied once here, at dataset build time, so a
+        given example keeps the same noise across all epochs. Re-sampling per
+        epoch would be stronger augmentation but needs tokenisation moved into
+        __getitem__; worth doing only if 3 epochs of fixed noise proves too weak.
+        """
         self.samples = []
         max_len = max_input + max_target
+        rng = random.Random(noise["seed"]) if noise else None
+        self.n_corrupted = 0
 
         for _, row in df.iterrows():
             sentence = row["sentence"]
             phonemes = row["phonemes"]
             is_homo = sentence in homo_set
+
+            if noise:
+                noisy = corrupt_random(
+                    phonemes, rng, noise["inventory"],
+                    noise["prob"], noise["rate_min"], noise["rate_max"],
+                )
+                if noisy != phonemes:
+                    self.n_corrupted += 1
+                phonemes = noisy
 
             prefix = f"Phonemes: {phonemes}\nText:"
             full_text = f"{prefix} {sentence}{tokenizer.eos_token}"
@@ -390,9 +433,14 @@ def build_dryrun_dataframes():
 
     if CFG["seq_split"]:
         TRAIN_N, VAL_N = 45839, 1082   # matches zero-shot/run_baseline.py; test rows stay untouched
-        return (full_df.iloc[:TRAIN_N].reset_index(drop=True),
-                full_df.iloc[TRAIN_N:TRAIN_N + VAL_N].reset_index(drop=True),
-                homo_set)
+        train_df = full_df.iloc[:TRAIN_N].reset_index(drop=True)
+        val_df   = full_df.iloc[TRAIN_N:TRAIN_N + VAL_N].reset_index(drop=True)
+        # Remove val sentences that appear verbatim in training (LRS2 has repeated
+        # broadcast phrases across the corpus). Training rows are unchanged.
+        train_sentences = set(train_df["sentence"])
+        val_df = val_df[~val_df["sentence"].isin(train_sentences)].reset_index(drop=True)
+        print(f"  Dedup: {VAL_N} val rows -> {len(val_df)} after removing training duplicates")
+        return train_df, val_df, homo_set
 
     if CFG["n_total"]:
         df = full_df.sample(n=min(CFG["n_total"], len(full_df)), random_state=42).reset_index(drop=True)
@@ -408,6 +456,10 @@ def build_dryrun_dataframes():
 
 def main():
     os.makedirs(CFG["checkpoint_dir"], exist_ok=True)
+    random.seed(CFG["seed"])
+    torch.manual_seed(CFG["seed"])
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(CFG["seed"])
     sentences_desc = (f"{CFG['n_total']} (unstratified)" if CFG["n_total"]
                        else f"{CFG['n_homophone']} homophone + {CFG['n_non_homophone']} non-homophone")
     print(f"Model: {CFG['model_name']}  |  Sentences: {sentences_desc}  |  "
@@ -428,8 +480,27 @@ def main():
         tokenizer=tokenizer,
     )
 
-    train_ds = CPTDataset(df_tr, tokenizer, homo_set, CFG["max_input_len"], CFG["max_target_len"])
+    # Noise augmentation applies to training only. df_val is built clean so the
+    # reported metrics stay directly comparable to the clean-training runs.
+    noise_cfg = None
+    if CFG["noise_prob"] > 0:
+        full_df = data_loader.load_original_phoneme_text_pairs()
+        noise_cfg = {
+            "prob":      CFG["noise_prob"],
+            "rate_min":  CFG["noise_rate_min"],
+            "rate_max":  CFG["noise_rate_max"],
+            "seed":      CFG["noise_seed"],
+            "inventory": phoneme_inventory(full_df["phonemes"]),
+        }
+        print(f"\nNoise augmentation ON: {CFG['noise_prob']:.0%} of training rows, "
+              f"rate {CFG['noise_rate_min']:.0%}-{CFG['noise_rate_max']:.0%}, "
+              f"seed {CFG['noise_seed']}  (validation stays clean)")
+
+    train_ds = CPTDataset(df_tr, tokenizer, homo_set, CFG["max_input_len"],
+                          CFG["max_target_len"], noise=noise_cfg)
     val_ds = CPTDataset(df_val, tokenizer, homo_set, CFG["max_input_len"], CFG["max_target_len"])
+    if noise_cfg:
+        print(f"  {train_ds.n_corrupted}/{len(train_ds)} training examples actually corrupted")
     train_dl = DataLoader(train_ds, batch_size=CFG["batch_size"], shuffle=True)
     val_dl = DataLoader(val_ds, batch_size=CFG["batch_size"], shuffle=False)
     print(f"  Train batches: {len(train_dl)}  |  Val batches: {len(val_dl)}")

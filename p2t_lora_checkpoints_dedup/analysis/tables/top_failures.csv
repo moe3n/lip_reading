@@ -1,0 +1,27 @@
+row,target,prediction,auto_bucket,audit_comment,manual_agree
+1,WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY FORTNIGHT,WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY NIGHT,homophone_substitution,truncation: model dropped FORT- syllable and emitted NIGHT instead of FORTNIGHT,DISAGREE
+2,LEARNING THE ROPES,LEARNING THE ROPE S,boundary_hallucination,boundary hallucination: decoder inserted space inside aligned word,agree
+3,A LITTLE SAXIFRAGE,A LITTLE SAXOPHONE FRAGMENT,oov_target_substitution,"OOV target -> plausible-English substitution: SAXIFRAGE is CMU OOV, model produced valid word",agree
+4,SQUIRREL POX VIRUS,SQUWAREL POX VIRUS,non_word_spelling,"non-word spelling: SQUWAREL is not a word (CMU OOV); single vowel insertion, not a homophone",agree
+5,SHE WAS A FLAWED SHIP,SHE WAS A FLAWED SHIPPING,suffix_hallucination,"suffix hallucination: model appended -ING to SHIP, no grammatical correction involved",agree
+6,DESPERATE TO PROVE YOUR BIZARRE THEORY,DESPERATE TO PROVE YOUR BIZARRE,truncation,truncation: model cut the last word of the sentence,agree
+7,AS LONG AS YOU'RE CALM,AS LONG AS YOU'RE COME,homophone_substitution,"consonant-drop near-homophone: K AA M -> K AH M, dropped L",agree
+8,EVEN THE FOREPLAY,EVEN THE FOUR PLAY,homophone_substitution,boundary hallucination: space inserted between FORE- and PLAY,DISAGREE
+9,AND INFLAMMATORY PHOTOGRAPH,AND IN FLAMATORY PHOTOGRAPH,semantic_substitution,boundary hallucination + non-word: IN- split and FLAMATORY is invalid,DISAGREE
+10,THAT MAKES A GRAND TOTAL OF SIX,THAT MAKES A GRAND TOTAL OF 6,digit_word_rendering,digit/word rendering: word SIX emitted as digit 6,agree
+11,THE PERFECT PINT,THE PERFECT PAINT,homophone_substitution,homophone substitution at word level: AY -> EY vowel swap,agree
+12,THIS IS SOUTH WELL,THIS IS SOUTHWELL,truncation,boundary hallucination: SOUTH WELL collapsed to SOUTHWELL (merge),DISAGREE
+13,ISLAM ALLOWS POLYGAMY,ISLAM ALLOWS POLIGAMY,non_word_spelling,"single-letter deletion: POLYGAMY -> POLIGAMY (missing Y); this is an error, not equivalent",DISAGREE
+14,TEN DAYS BEFOREHAND,TEN DAYS BEFORE HAND,boundary_hallucination,boundary hallucination: BEFOREHAND split into BEFORE HAND,agree
+15,THE OLYMPIC SWIMMER,THE OLYMPICS SWIMMER,homophone_substitution,plural hallucination + word surface change: OLYMPIC -> OLYMPICS (added S phoneme),DISAGREE
+16,PUERTO RICAN STYLE,PWARE TO RECONSTRUCT,non_word_spelling,"complete semantic substitution: phonemes rebuilt, PWARE OOV, STYLE replaced by RECONSTRUCT",DISAGREE
+17,CHILD OF THE MILLENNIUM,CHILD OF THE MOLYNEUX,non_word_spelling,"near-homophone substitution: shared M AH L EH N onset, divergent ending; MOLYNEUX is a surname",DISAGREE
+18,THE DUKE OF GLOUCESTER,THE DUKE OF GLOSTER,homophone_substitution,homophone substitution: GLOUCESTER -> GLOSTER (silent U dropped),agree
+19,IT'S ALL ABOUT THE STRICTLY PRO CHALLENGE,IT'S ALL ABOUT THE STRICTLY PROCHALLENGE,semantic_substitution,boundary hallucination: PRO CHALLENGE merged to PROCHALLENGE,DISAGREE
+20,NEUTRONS AND ELECTRONS,NUTRONS AND ELECTRONS,non_word_spelling,"non-word spelling: NUTRONS is invalid (CMU OOV); initial consonant N UW -> N drop, not a homophone",agree
+21,STRETCHING BACK 3,STRETCHING BACK THREE,digit_word_rendering,digit/word rendering: digit 3 emitted as word THREE,agree
+22,PONDERING THE IMMENSITY,PONDERING THE IMMANENCE,oov_target_substitution,"OOV-target -> real-word substitution: IMMENSITY is CMU OOV, IMMANENCE is a valid word",agree
+23,IT'S ALL ABOUT RARITY,IT'S ALL ABOUT RETIREMENT,homophone_substitution,"semantic substitution: phonemes completely different, RARITY -> RETIREMENT (longer, unrelated word)",DISAGREE
+24,DON'T FORGET THAT SCARECROW,DON'T FORGET THAT SCARCROW,non_word_spelling,"vowel-drop non-word: SCARECROW -> SCARCROW, dropped IY (CMU OOV for prediction)",agree
+25,AND WITH STEALTH,AND WITH STELLA,homophone_substitution,consonant-cluster substitution: TH -> AH (STEALTH -> STELLA),DISAGREE
+26,WITH THAT FLOURISH,WITH THAT FLURRY,homophone_substitution,syllable collapse: F L ER IH SH collapsed to F L ER IY (FLURRY is a valid word),DISAGREE

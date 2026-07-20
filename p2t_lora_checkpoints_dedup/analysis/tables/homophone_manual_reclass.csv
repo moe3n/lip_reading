@@ -1,0 +1,34 @@
+row,target,prediction,v2_bucket,true_bucket,note
+1,WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY FORTNIGHT,WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY NIGHT,homophone_substitution,boundary_hallucination,FORTNIGHT vs NIGHT — word drop
+2,BEFORE WE ALL GET TOO EXCITED ABOUT THAT PROSPECT,BEFORE WE ALL GET TOO EXCITED ABOUT THAT PROJECT,homophone_substitution,homophone_substitution,PROSPECT/PROJECT — clean swap
+3,AS LONG AS YOU'RE CALM,AS LONG AS YOU'RE COME,homophone_substitution,homophone_substitution,CALM/COME — clean swap
+4,WHICH IS NOW IN SYRIA,WHICH IS NOW IN SURREY,homophone_substitution,homophone_substitution,SYRIA/SURREY — clean swap
+5,TEARING IT TO THE GROUND,TERRIFYING IT TO THE GROUND,homophone_substitution,suffix_hallucination,TEARING/TERRIFYING — suffix
+6,THERE WAS A PORTCULLIS,THERE WAS A PERKELLIS,homophone_substitution,homophone_substitution,PORTCULLIS/PERKELLIS — clean swap
+7,EVEN THE FOREPLAY,EVEN THE FOUR PLAY,homophone_substitution,boundary_hallucination,FOREPLAY/FOUR PLAY — boundary
+8,THE PERFECT PINT,THE PERFECT PAINT,homophone_substitution,homophone_substitution,PINT/PAINT — clean swap
+9,WE HEARD THE STORY OF THE NURSE ANNA CROSS,WE HEARD THE STORY OF THE NURSE ANNE ACROSS,homophone_substitution,boundary_hallucination,ANNA CROSS/ANNE ACROSS — boundary
+10,SO WHAT IS THE ETIQUETTE,SO WHAT IS THE ETHIC,homophone_substitution,truncation,ETIQUETTE/ETHIC — truncation
+11,MR KHAN SPEAKING,MR CONNIE SPEAKING,homophone_substitution,homophone_substitution,KHAN/CONNIE — clean swap
+12,THE OLYMPIC SWIMMER,THE OLYMPICS SWIMMER,homophone_substitution,suffix_hallucination,OLYMPIC/OLYMPICS — suffix
+13,WHICH UPSET SOME OF OUR FEMALE RESIDENTS,WHICH UPSETS SOME OF OUR FEMALE RESIDENTS,homophone_substitution,suffix_hallucination,UPSET/UPSETS — suffix
+14,AND IN THE PROCESS OF ME NOT OFFENDING GOD,AND IN THE PROCESS OF ME NOT OFFERING GOD,homophone_substitution,homophone_substitution,OFFENDING/OFFERING — clean swap
+15,BECAUSE THE WHOLE POINT OF 9 11 IS THAT IT'S THE JUSTIFICATION FOR THE POLICE STATE,BECAUSE THE WHOLE POINT OF 9/11 IS THAT IT'S THE JUSTIFICATION FOR THE POLICE STATE,homophone_substitution,digit_word_rendering,9 11/9/11 — digit
+16,HERE TO GIVE US A RUNDOWN OF THE GREATEST FACIAL CHOREOGRAPHY EVER SEEN ON THE BOX,HERE TO GIVE US A RUN DOWN OF THE GREATEST FAMILIAL CHOREOGRAPHY EVER SEEN ON THE BOX,homophone_substitution,boundary_hallucination,RUNDOWN/RUN DOWN + FACIAL/FAMILIAL
+17,THE DUKE OF GLOUCESTER,THE DUKE OF GLOSTER,homophone_substitution,homophone_substitution,GLOUCESTER/GLOSTER — syllable drop
+18,WE HAVE THE DELECTABLE NEIL JONES,WE HAVE THE DELICATE ALUMNI,homophone_substitution,semantic_substitution,DELECTABLE NEIL/DELICATE ALUMNI
+19,I WANT TO TALK ABOUT DADDY TOO,I WANT TO TALK ABOUT DADDY TO,homophone_substitution,truncation,DADDY TOO/DADDY TO — truncation
+20,I HASTEN TO ADD,I HESITANT TO AD,homophone_substitution,homophone_substitution,HASTEN/HESITANT — suffix-expansion
+21,NICOLA IS DEFINITELY THE LOVE OF MY LIFE,NICOLE IS DEFINITELY THE LOVE OF MY LIFE,homophone_substitution,homophone_substitution,NICOLA/NICOLE — clean swap
+22,SOME BURN BRIGHTLY FOR A YEAR OR TWO,SUMMER BRIGHTLY FOR A YEAR OR TWO,homophone_substitution,semantic_substitution,BURN/SUMMER + BRIGHTLY loss
+23,BUT IT WAS SO DISCONCERTINGLY CALM IN THE STUDIO,BUT IT WAS SO DISCONCERTINGLY COME IN THE STUDIO,homophone_substitution,homophone_substitution,DISCONCERTINGLY CALM/COME — clean swap
+24,IT'S ALL ABOUT RARITY,IT'S ALL ABOUT RETIREMENT,homophone_substitution,homophone_substitution,RARITY/RETIREMENT — clean swap
+25,BUT SLIGHTLY REBELLIOUS SOCKS,BUT SLIGHTLY REBELLIOUS SAX,homophone_substitution,homophone_substitution,SOCKS/SAX — clean swap
+26,THE DAY JUST GOT WEIRDER AND WEIRDER,THE DAY JUST GOT WEIRD AND WEIRDER,homophone_substitution,suffix_hallucination,WEIRDER/WEIRD — suffix drop
+27,AND WITH STEALTH,AND WITH STELLA,homophone_substitution,homophone_substitution,STEALTH/STELLA — clean swap
+28,AND MORE MONEY FOR FIFA,AND MORE MONEY FOR NHS,homophone_substitution,semantic_substitution,FIFA/NHS — totally unrelated
+29,THERE ARE NO RECORDINGS OF LLOYD GEORGE AT THE PEAK OF HIS POWERS,THERE ARE NO RECORDINGS OF LOYD GEORGE AT THE PEAK OF HIS POWERS,homophone_substitution,homophone_substitution,LLOYD/LOYD — single-phoneme drop
+30,WITH THAT FLOURISH,WITH THAT FLURRY,homophone_substitution,homophone_substitution,FLOURISH/FLURRY — clean swap
+31,BY SOME MIRACLE,BUY SOME MIRACLE,homophone_substitution,homophone_substitution,BY SOME/SOME — single-word insertion
+32,GET A NEW LOYAL CUSTOMER AND DEBENHAMS,GET A NEW LOYAL CUSTOMER AND DEBINOMES,homophone_substitution,homophone_substitution,DEBENHAMS/DEBINOMES — clean swap
+33,AND THE INITIALS STAND FOR THE INTERNATIONAL MARXIST GROUP,AND THE INITIALS STAND FOR THE INTERNATIONAL MARKS ASSOCIATION,homophone_substitution,semantic_substitution,MARXIST GROUP/MARKS ASSOCIATION — rearrange

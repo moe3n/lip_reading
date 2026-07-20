@@ -1,0 +1,7 @@
+bucket,n_ref,S,I,D,H,rate_pct
+Word · overall,5214,87,13,11,5116,2.129
+Word · homophone,3995,57,8,9,3929,1.852
+Word · non-homophone,1219,30,5,2,1187,3.035
+Char · overall,26345,116,67,78,26151,0.991
+Char · homophone,19751,74,35,60,19617,0.856
+Char · non-homophone,6594,42,32,18,6534,1.395

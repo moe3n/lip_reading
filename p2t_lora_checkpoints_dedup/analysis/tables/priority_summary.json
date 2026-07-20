@@ -1,0 +1,118 @@
+{
+  "n_total": 949,
+  "n_em_true": 873,
+  "n_em_false": 76,
+  "headline": {
+    "wer_pct": 2.09,
+    "cer_pct": 0.98,
+    "exact_match_pct": 91.99,
+    "em_false_per_pct": 19.256550883607556,
+    "em_false_wper_pct": 17.91590493601463,
+    "em_false_wper_per_ratio": 0.9303797468354433,
+    "em_false_n_subs": 38,
+    "em_false_n_ins": 57,
+    "em_false_n_del": 221
+  },
+  "bertscore_em_false": {
+    "model": "microsoft/deberta-base-mnli",
+    "n": 76,
+    "mean_f1": 0.8838789473684211,
+    "above_0.90": 40,
+    "above_0.70": 75,
+    "below_0.50": 0,
+    "below_0.70": 1
+  },
+  "grammar_step7": {
+    "total_subs": 85,
+    "homophone_subs": 4,
+    "other_subs": 81,
+    "resolved_by_grammar": 0
+  },
+  "aer_em_false": {
+    "place_pct": 44.73684210526316,
+    "manner_pct": 47.368421052631575,
+    "voicing_pct": 26.31578947368421
+  },
+  "priority_ranked_issues": [
+    {
+      "rank": 1,
+      "issue": "Compound-word / boundary splitting (e.g. SOUTHWELL -> SOUTH WELL, BEFOREHAND -> BEFORE HAND)",
+      "evidence_column": "top_failures boundary_hallucination rows",
+      "evidence_value": "6 of 25 manually-audited top failures (most-cited bucket)",
+      "scope": "EM-False, recurring across homophone and non-homophone rows",
+      "fix": "Pre-tokenise compounds in the target side; consider a constrained decoder or post-hoc join rule for known compound lists."
+    },
+    {
+      "rank": 2,
+      "issue": "Digit / word number rendering mismatch (SIX <-> 6, TEN <-> 10)",
+      "evidence_column": "casing_punct_audit contains_digit count",
+      "evidence_value": "17 of 949 hyps contain a digit; 4 of 76 EM-False hyps use digits when ref used words",
+      "scope": "Phonetically correct; fails on orthographic convention only",
+      "fix": "Post-process: convert digit tokens to spelled-out words or vice-versa to match the reference convention."
+    },
+    {
+      "rank": 3,
+      "issue": "Proper-noun / rare-word OOV substitutions (WALDORF -> WALLDORF, SAXIFRAGE -> SAXOPHONE FRAGMENT)",
+      "evidence_column": "top_failures oov_target_substitution rows",
+      "evidence_value": "6 of 25 manually-audited top failures",
+      "scope": "EM-False slice; vocabulary coverage gap rather than acoustic failure",
+      "fix": "Expand CMU dictionary coverage via g2p fallback (already wired through data.g2p); allow free generation rather than forcing closest CMU word."
+    },
+    {
+      "rank": 4,
+      "issue": "Open-vowel within-class confusion (AA, EH, EY)",
+      "evidence_column": "per_phoneme_drilldown high-confidence rows (top 3)",
+      "evidence_value": "AA (14.7%); EY (11.1%); EH (8.2%)",
+      "scope": "Phoneme level; 14 of 38 EM-False subs = 'Vowel' label (36.84%)",
+      "fix": "Feature-aware rescoring does NOT help (vowels share place & manner; only length distinguishes). Retrain with vowel-length augmentation or use a duration-aware acoustic model."
+    },
+    {
+      "rank": 5,
+      "issue": "Casing artefacts inflate CER but have no research signal",
+      "evidence_column": "casing_punct_audit uppercase_word_present count",
+      "evidence_value": "932/949 hyps contain an uppercase word (98.21%)",
+      "scope": "Mechanical, not acoustic",
+      "fix": "Lowercase all hypotheses before CER computation, or upper-case all references \u2014 pick a single convention. Already mitigated by CER-vs-WER comparison."
+    },
+    {
+      "rank": 6,
+      "issue": "Suffix hallucination and space-insertion (SHIPPING for SHIP, ROPE S for ROPES)",
+      "evidence_column": "top_failures boundary_hallucination + suffix_hallucination rows",
+      "evidence_value": "7 of 25 manually-audited top failures",
+      "scope": "EM-False slice",
+      "fix": "Constrained decoding that penalises intra-word space insertion; subword-tokeniser fix if the issue persists at BPE level."
+    },
+    {
+      "rank": 7,
+      "issue": "Exact-homophone substitutions (TO/TOO, BY/BUY, AD/ADD, LLOYD/LOYD)",
+      "evidence_column": "grammar_breakdown homophone_subs sum",
+      "evidence_value": "4 of 85 subs are exact homophones (4.71%)",
+      "scope": "Mostly correct; the failure is that reference uses one form and hypothesis uses the other",
+      "fix": "Upstream: pick canonical form at training time. Downstream: no fix without breaking other usage; BERTScore already shows these are semantically equivalent."
+    },
+    {
+      "rank": 8,
+      "issue": "BERTScore F1 is high even on EM-False: 52.6% above 0.90",
+      "evidence_column": "semantic_similarity F1 distribution",
+      "evidence_value": "mean=0.8839, >=0.90: 40/76 (52.63%), <0.70: 1/76 (1.32%)",
+      "scope": "EM-False slice (n=76)",
+      "fix": "Reporting: WER/CER overstates the practical error magnitude for lip-reading. Use BERTScore or human-rated utility alongside WER."
+    },
+    {
+      "rank": 9,
+      "issue": "Closed-class grammar-rule firings (THEIR/YOUR/ITS/MY/OUR/WHOSE role mismatch)",
+      "evidence_column": "grammar_breakdown n_resolved_by_grammar sum",
+      "evidence_value": "0 of 85 substitutions escalated by Option-3 grammar rule",
+      "scope": "Specific: NONE of the {n_homophone_subs} homophone subs in dedup beam-5 trigger a closed-class role mismatch",
+      "fix": "Corpus contains no (THEIR/THERE) or (YOUR/YORE) misuse; the grammar detector is correctly armed but unused. Keep it for production runs."
+    },
+    {
+      "rank": 10,
+      "issue": "Non-word spelling emissions (SQUWAREL, POLIGAMY, NUTRONS)",
+      "evidence_column": "top_failures non_word_spelling rows",
+      "evidence_value": "0 of 25 manually-audited top failures",
+      "scope": "EM-False slice; indicates decoder emission without dictionary constraint",
+      "fix": "Constrained decoding over CMU vocabulary; or learn a spell-correction post-net trained on homophone-pairs."
+    }
+  ]
+}

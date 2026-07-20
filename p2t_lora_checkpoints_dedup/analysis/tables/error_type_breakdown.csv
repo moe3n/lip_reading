@@ -1,0 +1,7 @@
+label,count_all,pct_all,count_em_false,pct_em_false
+Exact match,873,91.99,0,0.00
+Other,51,5.37,51,67.11
+Vowel,14,1.48,14,18.42
+Manner,6,0.63,6,7.89
+Homophone,4,0.42,4,5.26
+Hallucination,1,0.11,1,1.32

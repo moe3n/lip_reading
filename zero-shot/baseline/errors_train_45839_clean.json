@@ -1,0 +1,344 @@
+{
+  "overall": {
+    "totals": {
+      "n_hits": 36859,
+      "n_substitutions": 221330,
+      "n_deletions": 70991,
+      "n_insertions": 128293
+    },
+    "substitution_categories": {
+      "Other": 211064,
+      "Near-homophone": 10071,
+      "Homophone": 195
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "I BUY IT BUT I DON'T EXPECT KFC TO HAVE IT ON THEIR MENU",
+          "AY B AY IH T B AH T AY D UW EH N T AY IH K S P EH K T K EY F S IY T",
+          "i",
+          "ay"
+        ],
+        [
+          "YOU CAN TAKE THINGS TOO FAR",
+          "You can't think of anything to say.",
+          "too",
+          "to"
+        ],
+        [
+          "AND I KNEW HIM WHEN I WAS A CHILD",
+          "And a way to win a car",
+          "when",
+          "win"
+        ],
+        [
+          "THE ONE IN THE KITCHEN",
+          "Dan won the championship.",
+          "one",
+          "won"
+        ],
+        [
+          "READING BETWEEN THE LINES",
+          "Redding by the lake",
+          "reading",
+          "redding"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "THROUGH WHAT THEY CALL A KNIFE BLOCK",
+          "The cat sat on the mat.",
+          "a",
+          "the"
+        ],
+        [
+          "APART FROM THE GOLDEN COLOUR AND THE DELICIOUS FLAVOUR",
+          "I am a farmer and I love to farm.",
+          "the",
+          "a"
+        ],
+        [
+          "AND WE NEED TO LOOK AT FISH",
+          "And what did you do today?",
+          "to",
+          "you"
+        ],
+        [
+          "MISS FLORENCE NIGHTINGALE IS NOW STAYING AT DR GULLY'S WATER CURE ESTABLISHMENT IN MALVERN",
+          "This is a sentence.",
+          "miss",
+          "this"
+        ],
+        [
+          "IS THERE ARE NO COLOURS OR LIGHTS THAT STAND OUT",
+          "I heard a roar lion roar",
+          "or",
+          "roar"
+        ]
+      ],
+      "Other": [
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "youre",
+          "younger"
+        ],
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "cooking",
+          "i"
+        ],
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "chips",
+          "used"
+        ],
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "at",
+          "to"
+        ],
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "home",
+          "skate"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "homophone": {
+    "totals": {
+      "n_hits": 30774,
+      "n_substitutions": 183739,
+      "n_deletions": 63586,
+      "n_insertions": 102858
+    },
+    "substitution_categories": {
+      "Other": 175299,
+      "Near-homophone": 8253,
+      "Homophone": 187
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "I BUY IT BUT I DON'T EXPECT KFC TO HAVE IT ON THEIR MENU",
+          "AY B AY IH T B AH T AY D UW EH N T AY IH K S P EH K T K EY F S IY T",
+          "i",
+          "ay"
+        ],
+        [
+          "YOU CAN TAKE THINGS TOO FAR",
+          "You can't think of anything to say.",
+          "too",
+          "to"
+        ],
+        [
+          "AND I KNEW HIM WHEN I WAS A CHILD",
+          "And a way to win a car",
+          "when",
+          "win"
+        ],
+        [
+          "THE ONE IN THE KITCHEN",
+          "Dan won the championship.",
+          "one",
+          "won"
+        ],
+        [
+          "WHY ARE WE GOING THAT WAY",
+          "Way Airing Going Det Wey",
+          "way",
+          "wey"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "THROUGH WHAT THEY CALL A KNIFE BLOCK",
+          "The cat sat on the mat.",
+          "a",
+          "the"
+        ],
+        [
+          "AND WE NEED TO LOOK AT FISH",
+          "And what did you do today?",
+          "to",
+          "you"
+        ],
+        [
+          "MISS FLORENCE NIGHTINGALE IS NOW STAYING AT DR GULLY'S WATER CURE ESTABLISHMENT IN MALVERN",
+          "This is a sentence.",
+          "miss",
+          "this"
+        ],
+        [
+          "IS THERE ARE NO COLOURS OR LIGHTS THAT STAND OUT",
+          "I heard a roar lion roar",
+          "or",
+          "roar"
+        ],
+        [
+          "I WAS HELPED AT THE BEGINNING BY A COMMITTEE",
+          "I'm a big fan of the band.",
+          "i",
+          "a"
+        ]
+      ],
+      "Other": [
+        [
+          "THROUGH WHAT THEY CALL A KNIFE BLOCK",
+          "The cat sat on the mat.",
+          "through",
+          "the"
+        ],
+        [
+          "THROUGH WHAT THEY CALL A KNIFE BLOCK",
+          "The cat sat on the mat.",
+          "what",
+          "cat"
+        ],
+        [
+          "THROUGH WHAT THEY CALL A KNIFE BLOCK",
+          "The cat sat on the mat.",
+          "they",
+          "sat"
+        ],
+        [
+          "THROUGH WHAT THEY CALL A KNIFE BLOCK",
+          "The cat sat on the mat.",
+          "call",
+          "on"
+        ],
+        [
+          "THROUGH WHAT THEY CALL A KNIFE BLOCK",
+          "The cat sat on the mat.",
+          "knife",
+          "mat"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "non_homophone": {
+    "totals": {
+      "n_hits": 6085,
+      "n_substitutions": 37591,
+      "n_deletions": 7405,
+      "n_insertions": 25435
+    },
+    "substitution_categories": {
+      "Other": 35765,
+      "Near-homophone": 1818,
+      "Homophone": 8
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "READING BETWEEN THE LINES",
+          "Redding by the lake",
+          "reading",
+          "redding"
+        ],
+        [
+          "AND I'M STILL A FISHERMAN",
+          "And a man shall hunt him, and take him.",
+          "im",
+          "him"
+        ],
+        [
+          "READING THE BRIEF",
+          "Redding Dibrari",
+          "reading",
+          "redding"
+        ],
+        [
+          "READING THE FUTURE",
+          "Redding Duffy",
+          "reading",
+          "redding"
+        ],
+        [
+          "NEAR THE HAYSTACK",
+          "Nir Dhahs",
+          "near",
+          "nir"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "APART FROM THE GOLDEN COLOUR AND THE DELICIOUS FLAVOUR",
+          "I am a farmer and I love to farm.",
+          "the",
+          "a"
+        ],
+        [
+          "ON HIS DEATHBED",
+          "Ann had bread",
+          "on",
+          "ann"
+        ],
+        [
+          "AND REVOLVES AROUND A FARMING FAMILY",
+          "And I was afraid of the dark.",
+          "a",
+          "of"
+        ],
+        [
+          "AND IT'S A BIG RECORD",
+          "And the sentence is And the sentence is",
+          "a",
+          "the"
+        ],
+        [
+          "DESCRIBING THE COUNTRIES OF THE WORLD",
+          "This is a test of the emergency broadcast system.",
+          "the",
+          "a"
+        ]
+      ],
+      "Other": [
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "youre",
+          "younger"
+        ],
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "cooking",
+          "i"
+        ],
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "chips",
+          "used"
+        ],
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "at",
+          "to"
+        ],
+        [
+          "WHEN YOU'RE COOKING CHIPS AT HOME",
+          "When I was younger, I used to skate.",
+          "home",
+          "skate"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "step7_grammar": {
+    "n_total_subs": 85,
+    "n_resolved_by_grammar": 0,
+    "category_counter": {
+      "Other": 81,
+      "Homophone": 4
+    },
+    "rule_counter": {},
+    "audit_counter": {
+      "uppercase_word_present": 932,
+      "contains_digit": 17
+    }
+  },
+  "step8_semantic": {
+    "mean_f1": 0.8838788388591063,
+    "median_f1": 0.9050449132919312,
+    "n": 76,
+    "above_090": 40,
+    "above_070": 75,
+    "below_050": 0,
+    "homo_mean": 0.886124632358551,
+    "nonhomo_mean": 0.8795600052063282
+  }
+}

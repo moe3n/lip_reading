@@ -1,0 +1,10 @@
+metric,value,notes
+n_val,949,949 = 1082 raw val - 133 train-leaks
+wer_beam5,2.09,jiwer
+cer_beam5,0.98,jiwer
+bleu4_beam5,0.9673,sacrebleu
+em_beam5,91.99,exact string match
+wer_greedy,3.53,"jiwer, greedy twin"
+em_greedy,86.51,"exact match, greedy twin"
+wer_delta_pp_beam5_minus_greedy,1.44,absolute WER improvement from beam-5
+em_delta_pp_beam5_minus_greedy,5.48,absolute EM improvement from beam-5

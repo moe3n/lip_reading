@@ -1,0 +1,312 @@
+{
+  "overall": {
+    "totals": {
+      "n_hits": 5048,
+      "n_substitutions": 147,
+      "n_deletions": 19,
+      "n_insertions": 18
+    },
+    "substitution_categories": {
+      "Other": 113,
+      "Near-homophone": 29,
+      "Homophone": 5
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "TO ALLOW BAD SURVEILLANCE TO WITHER ON THE VINE",
+          "TO ALLOW BAD SURVEILLANCE TOO WITHER ON THE VIEN",
+          "to",
+          "too"
+        ],
+        [
+          "FOUR KILOMETRES WITHOUT EVEN REALLY THINKING ABOUT IT",
+          "FOR KILOMETRES WITHOUT EVEN REALLY THINKING ABOUT IT",
+          "four",
+          "for"
+        ],
+        [
+          "I HASTEN TO ADD",
+          "I HESITANT TO AD",
+          "add",
+          "ad"
+        ],
+        [
+          "THERE ARE NO RECORDINGS OF LLOYD GEORGE AT THE PEAK OF HIS POWERS",
+          "THERE ARE NO RECORDINGS OF LOYD GEORGE AT THE PEAK OF HIS POWERS",
+          "lloyd",
+          "loyd"
+        ],
+        [
+          "BY SOME MIRACLE",
+          "BUY SOME MIRACLE",
+          "by",
+          "buy"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "IT'S A VERY ATTRACTIVE GUIDE PRICE FOR A SUBSTANTIAL HOUSE SO WELL",
+          "IT'S A VERY ATTRACTIVE GUIDE PRICE FOR US OBSTETRIC HOUSE SO WELL",
+          "a",
+          "us"
+        ],
+        [
+          "AS LONG AS YOU'RE CALM",
+          "AS LONG AS YOU'RE COME",
+          "calm",
+          "come"
+        ],
+        [
+          "WHY ARE MANY SUPERMARKETS STOPPING SELLING CAGED EGGS",
+          "WHY ARE MANY SUPERMARKETS STOPPING SALES CAGE DEBTS",
+          "caged",
+          "cage"
+        ],
+        [
+          "AS SHE LAY DYING",
+          "AS SHE LAID DYING",
+          "lay",
+          "laid"
+        ],
+        [
+          "VERY EXPENSIVE SHED",
+          "VERY EXPENSIVE SHADE",
+          "shed",
+          "shade"
+        ]
+      ],
+      "Other": [
+        [
+          "I EXPECTED YOU TO HAVE A PAST",
+          "I EXPECTED YOU TO HAVE A PASSION",
+          "past",
+          "passion"
+        ],
+        [
+          "THIS HOUSE WILL JUST COME TOGETHER AND FLOURISH",
+          "THIS HOUSE WILL JUST COME TOGETHER AND FLURRISH",
+          "flourish",
+          "flurrish"
+        ],
+        [
+          "IT'S A VERY ATTRACTIVE GUIDE PRICE FOR A SUBSTANTIAL HOUSE SO WELL",
+          "IT'S A VERY ATTRACTIVE GUIDE PRICE FOR US OBSTETRIC HOUSE SO WELL",
+          "substantial",
+          "obstetric"
+        ],
+        [
+          "SOME MEMBERS OF THE PUBLIC DON'T QUITE UNDERSTAND LEASEHOLD",
+          "SOME MEMBERS OF THE PUBLIC DON'T QUITE UNDERSTANDLY SHEOLD",
+          "understand",
+          "understandly"
+        ],
+        [
+          "SOME MEMBERS OF THE PUBLIC DON'T QUITE UNDERSTAND LEASEHOLD",
+          "SOME MEMBERS OF THE PUBLIC DON'T QUITE UNDERSTANDLY SHEOLD",
+          "leasehold",
+          "sheold"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "homophone": {
+    "totals": {
+      "n_hits": 3871,
+      "n_substitutions": 109,
+      "n_deletions": 15,
+      "n_insertions": 14
+    },
+    "substitution_categories": {
+      "Other": 85,
+      "Near-homophone": 19,
+      "Homophone": 5
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "TO ALLOW BAD SURVEILLANCE TO WITHER ON THE VINE",
+          "TO ALLOW BAD SURVEILLANCE TOO WITHER ON THE VIEN",
+          "to",
+          "too"
+        ],
+        [
+          "FOUR KILOMETRES WITHOUT EVEN REALLY THINKING ABOUT IT",
+          "FOR KILOMETRES WITHOUT EVEN REALLY THINKING ABOUT IT",
+          "four",
+          "for"
+        ],
+        [
+          "I HASTEN TO ADD",
+          "I HESITANT TO AD",
+          "add",
+          "ad"
+        ],
+        [
+          "THERE ARE NO RECORDINGS OF LLOYD GEORGE AT THE PEAK OF HIS POWERS",
+          "THERE ARE NO RECORDINGS OF LOYD GEORGE AT THE PEAK OF HIS POWERS",
+          "lloyd",
+          "loyd"
+        ],
+        [
+          "BY SOME MIRACLE",
+          "BUY SOME MIRACLE",
+          "by",
+          "buy"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "IT'S A VERY ATTRACTIVE GUIDE PRICE FOR A SUBSTANTIAL HOUSE SO WELL",
+          "IT'S A VERY ATTRACTIVE GUIDE PRICE FOR US OBSTETRIC HOUSE SO WELL",
+          "a",
+          "us"
+        ],
+        [
+          "WHY ARE MANY SUPERMARKETS STOPPING SELLING CAGED EGGS",
+          "WHY ARE MANY SUPERMARKETS STOPPING SALES CAGE DEBTS",
+          "caged",
+          "cage"
+        ],
+        [
+          "VERY EXPENSIVE SHED",
+          "VERY EXPENSIVE SHADE",
+          "shed",
+          "shade"
+        ],
+        [
+          "TO ALLOW BAD SURVEILLANCE TO WITHER ON THE VINE",
+          "TO ALLOW BAD SURVEILLANCE TOO WITHER ON THE VIEN",
+          "vine",
+          "vien"
+        ],
+        [
+          "I WAS FINE YESTERDAY",
+          "I WAS FINED YESTERDAY",
+          "fine",
+          "fined"
+        ]
+      ],
+      "Other": [
+        [
+          "I EXPECTED YOU TO HAVE A PAST",
+          "I EXPECTED YOU TO HAVE A PASSION",
+          "past",
+          "passion"
+        ],
+        [
+          "IT'S A VERY ATTRACTIVE GUIDE PRICE FOR A SUBSTANTIAL HOUSE SO WELL",
+          "IT'S A VERY ATTRACTIVE GUIDE PRICE FOR US OBSTETRIC HOUSE SO WELL",
+          "substantial",
+          "obstetric"
+        ],
+        [
+          "SOME MEMBERS OF THE PUBLIC DON'T QUITE UNDERSTAND LEASEHOLD",
+          "SOME MEMBERS OF THE PUBLIC DON'T QUITE UNDERSTANDLY SHEOLD",
+          "understand",
+          "understandly"
+        ],
+        [
+          "SOME MEMBERS OF THE PUBLIC DON'T QUITE UNDERSTAND LEASEHOLD",
+          "SOME MEMBERS OF THE PUBLIC DON'T QUITE UNDERSTANDLY SHEOLD",
+          "leasehold",
+          "sheold"
+        ],
+        [
+          "WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY FORTNIGHT",
+          "WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY NIGHT",
+          "fortnight",
+          "night"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "non_homophone": {
+    "totals": {
+      "n_hits": 1177,
+      "n_substitutions": 38,
+      "n_deletions": 4,
+      "n_insertions": 4
+    },
+    "substitution_categories": {
+      "Other": 28,
+      "Near-homophone": 10
+    },
+    "examples": {
+      "Homophone": [],
+      "Near-homophone": [
+        [
+          "AS LONG AS YOU'RE CALM",
+          "AS LONG AS YOU'RE COME",
+          "calm",
+          "come"
+        ],
+        [
+          "AS SHE LAY DYING",
+          "AS SHE LAID DYING",
+          "lay",
+          "laid"
+        ],
+        [
+          "THE PERFECT PINT",
+          "THE PERFECT PAINT",
+          "pint",
+          "paint"
+        ],
+        [
+          "STANDARD RATES APPLY",
+          "STANDARD RATE SUPPLY",
+          "rates",
+          "rate"
+        ],
+        [
+          "STANDARD RATES APPLY",
+          "STANDARD RATE SUPPLY",
+          "apply",
+          "supply"
+        ]
+      ],
+      "Other": [
+        [
+          "THIS HOUSE WILL JUST COME TOGETHER AND FLOURISH",
+          "THIS HOUSE WILL JUST COME TOGETHER AND FLURRISH",
+          "flourish",
+          "flurrish"
+        ],
+        [
+          "A LITTLE SAXIFRAGE",
+          "A LITTLE SAXOPHONE FRAGMENT",
+          "saxifrage",
+          "fragment"
+        ],
+        [
+          "SQUIRREL POX VIRUS",
+          "SQUAREL POX VIRUS",
+          "squirrel",
+          "squarel"
+        ],
+        [
+          "SHE WAS A FLAWED SHIP",
+          "SHE WAS A FLAWED SHIPPING",
+          "ship",
+          "shipping"
+        ],
+        [
+          "EVEN THE FOREPLAY",
+          "EVEN THE FOUR PLAY",
+          "foreplay",
+          "play"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  }
+}

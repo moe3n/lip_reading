@@ -1,14 +1,16 @@
 """
 Zero-Shot Ablation Baseline — plain Llama-3.2-3B, phonemes -> text.
-=====================================================================
+
+Purpose
+-------
 Lives outside src/ on purpose: this is an ablation study, not part of the
 trained CPT decoder. No LoRA, no training, no import of model.py's PEFT
 wrapper. It DOES reuse p2t_lora's data/eval utilities (loader.py,
 g2p.py, metrics.py, evaluation/error_analysis.py) since those are generic
 analysis tooling — plain refs/hyps in, numbers out — not decoder code.
 
-Runs TWO preprocessing modes back-to-back on the same model load, so their
-metrics/error-analysis are directly comparable:
+Modes (run back-to-back on one model load, so results are comparable)
+---------------------------------------------------------------------
     clean — loader.py's cleaned phonemes: no <SOS>/<EOS>/<space>/stress
             markers, e.g. "DH AH0 <space> K AE1 T" -> "DH A K AE T"
     raw   — loader.py's phonemes_raw, untouched: markers and stress digits
@@ -16,10 +18,14 @@ metrics/error-analysis are directly comparable:
             markers mean nothing to Llama's tokenizer on their own, "raw"
             uses a longer instruction that spells out the notation.
 
-Metrics: WER, CER, PER (phoneme error rate, via G2P round-trip), BLEU-4,
+Metrics
+-------
+WER, CER, PER (phoneme error rate, via G2P round-trip), BLEU-4,
 Exact Match — stratified Overall / Homophone / Non-Homophone, per mode.
 
-Error analysis: every WER substitution classified as Homophone /
+Optional stages
+---------------
+Error analysis — every WER substitution classified as Homophone /
 Near-homophone / Other (Stage 2), escalated through grammar-based
 resolution (Stage 3 Option 3) where possible. Set ZS_ERROR_ANALYSIS=0 to
 skip (the near-homophone lookup brute-scans the ~125k-word CMU dict,
@@ -31,30 +37,33 @@ prompting-baseline suite — see comparison/recompute_mira.py): SID
 and WPER (heuristic + panphon), stratified the same way as the core
 metrics. Set ZS_EXTENDED_METRICS=0 to skip.
 
-Env config (all optional):
+Env config (all optional)
+-------------------------
     ZS_MODEL             default: meta-llama/Llama-3.2-3B
     ZS_SPLIT              "train" | "val" | "test"      default: "val"
     ZS_LIMIT               0 = whole split; N = first N rows  default: 0
     ZS_BATCH_SIZE          default: 8
     ZS_MODES               comma list of "clean","raw"   default: "clean,raw"
     ZS_ERROR_ANALYSIS      "1" | "0"                     default: "1"
+    ZS_EXTENDED_METRICS    "1" | "0"                     default: "1"
+    ZS_DEDUP_TRAIN         "1" | "0"                     default: "0"
+    ZS_SPLIT_OFFSET        0-based row slice start        default: 0
+    ZS_SPLIT_STRIDE        row slice step (1 = no slice)  default: 1
 
-Resume: predictions stream to preds_<split>_<n>_<mode>.jsonl, one mode per
-file. Killing the process and re-running with the same split/mode picks up
-where it left off instead of re-decoding.
+Resume
+------
+Predictions stream to preds_<split>_<n>_<mode>.jsonl, one mode per file.
+Killing the process and re-running with the same split/mode picks up where
+it left off instead of re-decoding.
 """
 
 import os
 import sys
 import csv
 import json
-import re
-
-import pandas as pd
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 import jiwer
-import sacrebleu
 
 _HERE = os.path.dirname(os.path.abspath(__file__))          # zero-shot/
 _SRC = os.path.join(os.path.dirname(_HERE), "src")
@@ -83,6 +92,29 @@ RUN_ERROR_ANALYSIS = os.environ.get("ZS_ERROR_ANALYSIS", "1") == "1"
 # compute cost at scale) are deliberately NOT wired in here, same scope
 # decision as comparison/recompute_mira.py — run them separately if wanted.
 RUN_EXTENDED_METRICS = os.environ.get("ZS_EXTENDED_METRICS", "1") == "1"
+# Train/eval sentence overlap: the LRS2 corpus repeats sentences (broadcast
+# fillers, names), and a sequential slice keeps them on both sides of the
+# boundary. Empirically 12.3% of val and 12.2% of test rows are verbatim
+# duplicates of train rows (audit 2026-07-12). Setting ZS_DEDUP_TRAIN=1 drops
+# any eval row whose sentence appears in train BEFORE decoding, so the
+# reported metrics are on truly-novel data only. Off by default to keep the
+# script's behaviour stable for the legacy 5k comparison.
+DEDUP_TRAIN = os.environ.get("ZS_DEDUP_TRAIN", "0") == "1"
+
+# Two-GPU parallel decode: split the chosen split (typically train, 45,839 rows)
+# into N contiguous slices so N processes can each own one slice and write into
+# disjoint output files. Each process sets ZS_SPLIT_OFFSET to its 0-based slot
+# and ZS_SPLIT_STRIDE to N. Example for 2 GPUs: GPU0 gets OFFSET=0 STRIDE=2
+# (even-indexed rows), GPU1 gets OFFSET=1 STRIDE=2 (odd-indexed rows). Stride=1
+# is the legacy behaviour (no slicing). The offset is applied AFTER dedup, so
+# dedup numbers stay comparable across processes.
+SPLIT_OFFSET = int(os.environ.get("ZS_SPLIT_OFFSET", "0"))
+SPLIT_STRIDE = int(os.environ.get("ZS_SPLIT_STRIDE", "1"))
+if SPLIT_OFFSET < 0 or SPLIT_STRIDE < 1 or SPLIT_OFFSET >= SPLIT_STRIDE:
+    raise ValueError(
+        f"ZS_SPLIT_OFFSET={SPLIT_OFFSET} / ZS_SPLIT_STRIDE={SPLIT_STRIDE} "
+        f"is invalid: need 0 <= OFFSET < STRIDE >= 1."
+    )
 
 TRAIN_N, VAL_N, TEST_N = 45839, 1082, 1243
 OUT_DIR = os.path.join(_HERE, "baseline")
@@ -185,7 +217,66 @@ def norm(t):
     return re.sub(r"\s+", " ", t).strip()
 
 
+def _patch_bnb_safe_to():
+    """Monkeypatch PreTrainedModel.to so accelerate's `dispatch_model` can
+    move a 4-bit bnb model. Idempotent — installs at most once.
+
+    Why this is needed
+    ------------------
+    accelerate 1.14.0's `dispatch_model` resolves like this:
+
+        use_multi_gpu = len(set(device_map.values())) > 1
+        if use_multi_gpu and not check_cuda_p2p_ib_support():
+            logger.warning(...)
+        else:
+            model.to(device)   # <-- crashes for 4-bit bnb
+
+    With CUDA_VISIBLE_DEVICES pinning ONE GPU, `device_map="auto"` ends up
+    with one unique device and accelerate calls `model.to(device)` on the
+    whole 4-bit model, which raises:
+        ValueError: .to is not supported for 4-bit or 8-bit bitsandbytes models
+
+    With CUDA_VISIBLE_DEVICES empty (both GPUs visible) and device_map="auto",
+    accelerate splits layers across both cards, hits the `use_multi_gpu=True`
+    branch, and skips the .to() call entirely — that's what made the val-full
+    smoke work. But splitting a 3B model across 2× GTX 1080 over PCIe is much
+    slower than single-GPU (~0.3 rows/sec vs ~3+ rows/sec).
+
+    transformers 4.44 unconditionally raises ValueError on `.to()` when
+    `quantization_method == BITS_AND_BYTES`. accelerate's dispatch_model calls
+    `.to(device)` to move ALL submodules (including non-Linear ones like
+    `LlamaRotaryEmbedding` whose `inv_freq` buffer lives on CPU until `.to()`
+    is called). Without that move, forward passes fail with
+    "Expected all tensors to be on the same device, cpu and cuda:0".
+
+    The fix: temporarily mask `quantization_method` while calling the original
+    `.to()` so transformers lets the call through; bnb 0.43.2+ already
+    supports moving 4-bit Linear layers itself, so the move itself is safe.
+    """
+    from transformers.modeling_utils import PreTrainedModel
+    _orig = PreTrainedModel.to
+
+    def _safe_to(self, *args, **kwargs):
+        if (self.__class__.__name__ == "LlamaForCausalLM"
+                or getattr(self, "is_loaded_in_4bit", False)
+                or getattr(self, "is_loaded_in_8bit", False)):
+            saved = self.__dict__.get("quantization_method", None)
+            try:
+                self.quantization_method = None
+                return _orig(self, *args, **kwargs)
+            finally:
+                if saved is not None:
+                    self.quantization_method = saved
+        return _orig(self, *args, **kwargs)
+
+    if not getattr(PreTrainedModel, "_bnb_safe_to_patched", False):
+        PreTrainedModel.to = _safe_to
+        PreTrainedModel._bnb_safe_to_patched = True
+
+
 def load_model(tok):
+    """Load the model in 4-bit bnb, pinned to the single visible GPU."""
+    _patch_bnb_safe_to()
     quant = BitsAndBytesConfig(
         load_in_4bit=True, bnb_4bit_quant_type="nf4",
         bnb_4bit_use_double_quant=True,
@@ -195,7 +286,9 @@ def load_model(tok):
         MODEL, quantization_config=quant, device_map="auto",
     )
     model.eval()
-    print(f"  Loaded {MODEL} (4-bit, compute dtype {bnb_compute_dtype()})")
+    placed = next(model.parameters()).device
+    print(f"  Loaded {MODEL} (4-bit, compute dtype {bnb_compute_dtype()}, "
+          f"placed {placed})")
     return model
 
 
@@ -217,7 +310,13 @@ def run_mode(mode, tok, model_holder, split_df, is_homo, max_input_len):
     print("=" * 70)
 
     col = PHONEME_COLUMN[mode]
-    jsonl_path = os.path.join(OUT_DIR, f"preds_{SPLIT}_{len(split_df)}_{mode}.jsonl")
+    if SPLIT_STRIDE > 1:
+        jsonl_path = os.path.join(
+            OUT_DIR,
+            f"preds_{SPLIT}_{len(split_df) * SPLIT_STRIDE}_{mode}_offset{SPLIT_OFFSET}-stride{SPLIT_STRIDE}.jsonl",
+        )
+    else:
+        jsonl_path = os.path.join(OUT_DIR, f"preds_{SPLIT}_{len(split_df)}_{mode}.jsonl")
 
     already = 0
     if os.path.isfile(jsonl_path):
@@ -314,6 +413,9 @@ def main():
     print(f"  Split  : {SPLIT}   Limit: {LIMIT or 'none (full split)'}")
     print(f"  Modes  : {', '.join(MODES)}")
     print(f"  Error analysis: {'ON' if RUN_ERROR_ANALYSIS else 'OFF'}")
+    print(f"  Dedup vs train: {'ON (drop eval rows whose sentence is in train)' if DEDUP_TRAIN else 'OFF'}")
+    if SPLIT_STRIDE > 1:
+        print(f"  Slice  : offset={SPLIT_OFFSET} stride={SPLIT_STRIDE} (this process owns every {SPLIT_STRIDE}th row starting at index {SPLIT_OFFSET})")
 
     df = data_loader.load_original_phoneme_text_pairs()
     slices = {
@@ -324,6 +426,25 @@ def main():
     split_df = slices[SPLIT].reset_index(drop=True)
     if LIMIT:
         split_df = split_df.head(LIMIT)
+
+    if DEDUP_TRAIN and SPLIT in ("val", "test"):
+        train_sents = set(slices["train"]["sentence"])
+        before = len(split_df)
+        mask = ~split_df["sentence"].isin(train_sents)
+        split_df = split_df[mask].reset_index(drop=True)
+        print(f"  Dedup : dropped {before - len(split_df)}/{before} rows "
+              f"(verbatim in train); {len(split_df)} kept.")
+
+    # Apply ZS_SPLIT_OFFSET / ZS_SPLIT_STRIDE partitioning AFTER dedup so each
+    # process sees the same dedup numbers and the union of all processes'
+    # slices == dedup'd split. Two-GPU launch: GPU0 OFFSET=0 STRIDE=2,
+    # GPU1 OFFSET=1 STRIDE=2. Each process gets a slice-tagged jsonl path so
+    # they don't race on append.
+    if SPLIT_STRIDE > 1:
+        before_slice = len(split_df)
+        split_df = split_df.iloc[SPLIT_OFFSET::SPLIT_STRIDE].reset_index(drop=True)
+        print(f"  Slice : offset={SPLIT_OFFSET} stride={SPLIT_STRIDE} "
+              f"({before_slice} -> {len(split_df)} rows for this process)")
 
     homo_set = set(data_loader.load_homophone_sentences()["sentence"])
     is_homo = [s in homo_set for s in split_df["sentence"]]
@@ -350,10 +471,15 @@ def main():
         all_rows.extend(run_mode(mode, tok, model_holder, split_df, is_homo, max_input_len))
 
     fieldnames = ["mode", "label", "n", "WER", "CER", "PER", "BLEU4", "EM"]
-    with open(os.path.join(OUT_DIR, "metrics.csv"), "w", newline="") as f:
+    # Per-split, per-size metrics CSV — does NOT clobber the legacy
+    # `metrics.csv` (root name + 5k train/val/smoke only). Multiple runs
+    # on different (split, n) now coexist as separate files.
+    metrics_path = os.path.join(OUT_DIR, f"metrics_{SPLIT}_{len(split_df)}.csv")
+    with open(metrics_path, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fieldnames)
         w.writeheader()
         w.writerows(all_rows)
+    print(f"\nMetrics written to {metrics_path}")
 
     if len(MODES) > 1:
         print("\n" + "=" * 70)

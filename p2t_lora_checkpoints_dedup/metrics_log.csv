@@ -1,0 +1,4 @@
+timestamp,model,subset,n,WER,CER,BLEU4,ExactMatch
+2026-07-17 19:32,meta-llama/Llama-3.2-3B,Overall,949,3.529,1.7113,0.9373,86.5121
+2026-07-17 19:32,meta-llama/Llama-3.2-3B,Homophone,672,3.4543,1.7153,0.9362,86.0119
+2026-07-17 19:32,meta-llama/Llama-3.2-3B,Non-Homophone,277,3.7736,1.6993,0.943,87.7256
