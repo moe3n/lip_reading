@@ -1,0 +1,312 @@
+{
+  "overall": {
+    "totals": {
+      "n_hits": 5087,
+      "n_substitutions": 120,
+      "n_deletions": 7,
+      "n_insertions": 25
+    },
+    "substitution_categories": {
+      "Other": 94,
+      "Near-homophone": 19,
+      "Homophone": 7
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "IN THE FORM OF A DESSERT PLATE",
+          "IN THE FORM OF A DESERT PLATE",
+          "dessert",
+          "desert"
+        ],
+        [
+          "MR KHAN SPEAKING",
+          "MR CON SPEAKING",
+          "khan",
+          "con"
+        ],
+        [
+          "GRAHAM BARON ASH",
+          "GRAHAM BARRON AS",
+          "baron",
+          "barron"
+        ],
+        [
+          "THEY DECIDED TO TIE THE KNOT",
+          "THEY DECIDED TO TRY THE NOT",
+          "knot",
+          "not"
+        ],
+        [
+          "BECAUSE THEY'VE GOT TO",
+          "BECAUSE THEY'VE GOT TWO",
+          "to",
+          "two"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "THIS AUCTION LOT HAS IT IN SPADES",
+          "THIS AUCTION LOT HAS ITS INSPACES",
+          "it",
+          "its"
+        ],
+        [
+          "WE HEARD THE STORY OF THE NURSE ANNA CROSS",
+          "WE HEARD THE STORY OF THE NURSE ANNE CROSS",
+          "anna",
+          "anne"
+        ],
+        [
+          "THEY DON'T CALL THEM TEAM POCKET ROCKET FOR NOTHING",
+          "THEY DON'T CALL THEM TEAM POCKET ROCKETS FOR NOTHING",
+          "rocket",
+          "rockets"
+        ],
+        [
+          "COURAGE UNDER FIRE",
+          "COURAGE AND FIRE",
+          "under",
+          "and"
+        ],
+        [
+          "A TRIBAL NATION",
+          "A TRIBLE NATION",
+          "tribal",
+          "trible"
+        ]
+      ],
+      "Other": [
+        [
+          "WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY FORTNIGHT",
+          "WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY FOUR NIGHTS",
+          "fortnight",
+          "nights"
+        ],
+        [
+          "LEARNING THE ROPES",
+          "LEARNING THE ROLES",
+          "ropes",
+          "roles"
+        ],
+        [
+          "A LITTLE SAXIFRAGE",
+          "A LITTLE SAXON FRAGMENT",
+          "saxifrage",
+          "fragment"
+        ],
+        [
+          "SQUIRREL POX VIRUS",
+          "SQUAMOUS POX VIRUS",
+          "squirrel",
+          "squamous"
+        ],
+        [
+          "YOU MUST HAVE A PERSONAL KEY",
+          "YOU MUST HAVE A PERSONAL LINK",
+          "key",
+          "link"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "homophone": {
+    "totals": {
+      "n_hits": 3909,
+      "n_substitutions": 80,
+      "n_deletions": 6,
+      "n_insertions": 16
+    },
+    "substitution_categories": {
+      "Other": 61,
+      "Near-homophone": 12,
+      "Homophone": 7
+    },
+    "examples": {
+      "Homophone": [
+        [
+          "IN THE FORM OF A DESSERT PLATE",
+          "IN THE FORM OF A DESERT PLATE",
+          "dessert",
+          "desert"
+        ],
+        [
+          "MR KHAN SPEAKING",
+          "MR CON SPEAKING",
+          "khan",
+          "con"
+        ],
+        [
+          "GRAHAM BARON ASH",
+          "GRAHAM BARRON AS",
+          "baron",
+          "barron"
+        ],
+        [
+          "THEY DECIDED TO TIE THE KNOT",
+          "THEY DECIDED TO TRY THE NOT",
+          "knot",
+          "not"
+        ],
+        [
+          "BECAUSE THEY'VE GOT TO",
+          "BECAUSE THEY'VE GOT TWO",
+          "to",
+          "two"
+        ]
+      ],
+      "Near-homophone": [
+        [
+          "THIS AUCTION LOT HAS IT IN SPADES",
+          "THIS AUCTION LOT HAS ITS INSPACES",
+          "it",
+          "its"
+        ],
+        [
+          "WE HEARD THE STORY OF THE NURSE ANNA CROSS",
+          "WE HEARD THE STORY OF THE NURSE ANNE CROSS",
+          "anna",
+          "anne"
+        ],
+        [
+          "THEY DON'T CALL THEM TEAM POCKET ROCKET FOR NOTHING",
+          "THEY DON'T CALL THEM TEAM POCKET ROCKETS FOR NOTHING",
+          "rocket",
+          "rockets"
+        ],
+        [
+          "WHICH UPSET SOME OF OUR FEMALE RESIDENTS",
+          "WHICH UPSETS SOME OF OUR FEMALE RESIDENTS",
+          "upset",
+          "upsets"
+        ],
+        [
+          "GRAHAM BARON ASH",
+          "GRAHAM BARRON AS",
+          "ash",
+          "as"
+        ]
+      ],
+      "Other": [
+        [
+          "WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY FORTNIGHT",
+          "WOULD YOU WANT NEW NEIGHBOURS EVERY WEEK OR EVERY FOUR NIGHTS",
+          "fortnight",
+          "nights"
+        ],
+        [
+          "YOU MUST HAVE A PERSONAL KEY",
+          "YOU MUST HAVE A PERSONAL LINK",
+          "key",
+          "link"
+        ],
+        [
+          "THE WHOLE GARDENS ARE EXTRAORDINARY AND",
+          "THE WHOLE GARDENS ARE EXTRAORDINARILY AND",
+          "extraordinary",
+          "extraordinarily"
+        ],
+        [
+          "BUT THE WALDORF ASTORIA",
+          "BUT THE WALLDORF STORY IS",
+          "waldorf",
+          "story"
+        ],
+        [
+          "BUT THE WALDORF ASTORIA",
+          "BUT THE WALLDORF STORY IS",
+          "astoria",
+          "is"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  },
+  "non_homophone": {
+    "totals": {
+      "n_hits": 1178,
+      "n_substitutions": 40,
+      "n_deletions": 1,
+      "n_insertions": 9
+    },
+    "substitution_categories": {
+      "Other": 33,
+      "Near-homophone": 7
+    },
+    "examples": {
+      "Homophone": [],
+      "Near-homophone": [
+        [
+          "COURAGE UNDER FIRE",
+          "COURAGE AND FIRE",
+          "under",
+          "and"
+        ],
+        [
+          "A TRIBAL NATION",
+          "A TRIBLE NATION",
+          "tribal",
+          "trible"
+        ],
+        [
+          "PUERTO RICAN STYLE",
+          "PERHAPS A RECON STYLE",
+          "rican",
+          "recon"
+        ],
+        [
+          "THE DUKE OF GLOUCESTER",
+          "THE DUKE OF GLOSTER",
+          "gloucester",
+          "gloster"
+        ],
+        [
+          "PLEASE WELCOME JENNY ECLAIR",
+          "PLEASE WELCOME GENIE CLARKE",
+          "jenny",
+          "genie"
+        ]
+      ],
+      "Other": [
+        [
+          "LEARNING THE ROPES",
+          "LEARNING THE ROLES",
+          "ropes",
+          "roles"
+        ],
+        [
+          "A LITTLE SAXIFRAGE",
+          "A LITTLE SAXON FRAGMENT",
+          "saxifrage",
+          "fragment"
+        ],
+        [
+          "SQUIRREL POX VIRUS",
+          "SQUAMOUS POX VIRUS",
+          "squirrel",
+          "squamous"
+        ],
+        [
+          "SHE WAS A FLAWED SHIP",
+          "SHE WAS A FLUID SHIP",
+          "flawed",
+          "fluid"
+        ],
+        [
+          "PROTECTED FROM THE PREVAILING WINDS",
+          "PROTECTED FROM THE PERSISTING WINDS",
+          "prevailing",
+          "persisting"
+        ]
+      ]
+    },
+    "stage3_categories": {},
+    "stage3_methods": {},
+    "stage3_examples": []
+  }
+}
