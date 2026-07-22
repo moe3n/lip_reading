@@ -1,0 +1,11 @@
+{
+  "n_rows": 300,
+  "rates": [
+    0.05,
+    0.1,
+    0.2
+  ],
+  "seed": 42,
+  "checkpoint": "p2t_lora_checkpoints_noise\\epoch_3",
+  "decoding": "beam-5"
+}

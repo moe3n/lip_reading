@@ -43,10 +43,17 @@ from p2t_lora.evaluation.metrics import stratified_evaluate
 from p2t_lora.augmentation.phoneme_noise import corrupt, phoneme_inventory
 from p2t_lora.model import patch_bnb_safe_to
 
-CHECKPOINT_ROOT = "p2t_lora_checkpoints_dedup"
+# Which trained model to probe. Both arms of the ablation need probing:
+#   NOISE_CHECKPOINT=p2t_lora_checkpoints_dedup  -> clean-trained baseline
+#   NOISE_CHECKPOINT=p2t_lora_checkpoints_noise  -> noise-augmented model
+# Output goes to its own directory per checkpoint so the two never overwrite.
+CHECKPOINT_ROOT = os.environ.get("NOISE_CHECKPOINT", "p2t_lora_checkpoints_dedup")
 EPOCH_DIR       = os.path.join(CHECKPOINT_ROOT, "epoch_3")
 BASE_MODEL      = "meta-llama/Llama-3.2-3B"
-OUT_DIR         = os.path.join("analysis", "noise_probe_out")
+OUT_DIR         = os.environ.get(
+    "NOISE_OUT_DIR",
+    os.path.join("analysis", f"noise_probe_{os.path.basename(CHECKPOINT_ROOT)}"),
+)
 TRAIN_N, VAL_N  = 45839, 1082
 
 N_ROWS = int(os.environ.get("NOISE_N_ROWS", "300"))
@@ -56,7 +63,15 @@ SEED   = int(os.environ.get("NOISE_SEED", "42"))
 
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
+    # Written before generation, not after, so a run that dies partway still
+    # says what it was doing. A directory holding config.json but no
+    # summary.csv means generation did not finish.
+    with open(os.path.join(OUT_DIR, "config.json"), "w") as f:
+        json.dump({"n_rows": N_ROWS, "rates": RATES, "seed": SEED,
+                   "checkpoint": EPOCH_DIR, "decoding": "beam-5"}, f, indent=2)
 
+    print(f"Probing checkpoint: {EPOCH_DIR}")
+    print(f"Output directory:   {OUT_DIR}")
     print("Loading corpus ...")
     full_df = data_loader.load_original_phoneme_text_pairs()
     train_df = full_df.iloc[:TRAIN_N].reset_index(drop=True)
@@ -141,7 +156,8 @@ def main():
     sdf.to_csv(os.path.join(OUT_DIR, "summary.csv"), index=False)
 
     print("\n" + "=" * 60)
-    print(f"  Noise sensitivity — {len(probe)} rows, beam-5, epoch_3")
+    print(f"  Noise sensitivity — {CHECKPOINT_ROOT}")
+    print(f"  {len(probe)} rows, beam-5, epoch_3")
     print("=" * 60)
     print(f"  {'Condition':<20}{'WER':>9}{'CER':>9}{'EM':>9}")
     print("  " + "-" * 45)
@@ -149,9 +165,11 @@ def main():
         print(f"  {r['condition']:<20}{r['WER']:>8.2f}%{r['CER']:>8.2f}%{r['ExactMatch']:>8.2f}%")
     print("=" * 60)
 
-    with open(os.path.join(OUT_DIR, "config.json"), "w") as f:
-        json.dump({"n_rows": len(probe), "rates": RATES, "seed": SEED,
-                   "checkpoint": EPOCH_DIR, "decoding": "beam-5"}, f, indent=2)
+    clean_em = next(r["ExactMatch"] for r in summary if r["condition"] == "clean")
+    worst = min(summary, key=lambda r: r["ExactMatch"])
+    print(f"\n  Clean control: {clean_em:.2f}% EM")
+    print(f"  Worst case ({worst['condition']}): {worst['ExactMatch']:.2f}% EM "
+          f"({clean_em - worst['ExactMatch']:.2f} points below clean)")
     print(f"\nDone. Per-condition predictions + summary.csv in {OUT_DIR}/")
 
 
