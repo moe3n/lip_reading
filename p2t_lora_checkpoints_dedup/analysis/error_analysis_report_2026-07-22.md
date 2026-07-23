@@ -89,11 +89,12 @@ sample is small enough that a systematic pattern could still emerge at larger
 scale, so this describes the current data without ruling that out.
 
 The density sits in the upper-left block, where a vowel was replaced by another
-vowel. That accounts for 19 of the 38 substitutions, the largest single group,
-which agrees with the per-sound error rates in the next section. Six
-substitutions replace a consonant with a vowel and three replace a vowel with a
-consonant, and the rest stay within the consonants. These proportions rest on
-small counts and are indicative of direction.
+vowel. That accounts for 19 of the 38 substitutions, exactly half, and is the
+clearest signal in the analysis that the model's weak point is vowel quality
+rather than consonants. This proportion does not depend on how often each sound
+appears, so it is more stable than the per-sound rates below. Six substitutions
+replace a consonant with a vowel and three replace a vowel with a consonant, and
+the rest stay within the consonants.
 
 For completeness: an earlier version of this matrix was computed incorrectly. It
 joined each phoneme sequence into one unbroken string before aligning, which made
@@ -103,36 +104,39 @@ matrix shown here, and any earlier figure built from it should be disregarded.
 
 ### Phoneme-class analysis
 
-Error rate for each reference sound. Occurrences here are counted within the 76
-failing sentences, so these rates describe behaviour once a sentence has already
-gone wrong. Corpus-wide rates are far lower, since AA appears 379 times across
-all 949 sentences and carries 5 substitutions, which is 1.3%.
+The table below counts, for each reference sound, how many times it was
+substituted and how often it appears across all 949 sentences, giving a
+corpus-wide error rate in the same form as the parallel prompting study. Sounds
+are ordered by substitution count, since that is the more stable ordering at
+these low error volumes.
 
-| Sound | Occurrences in failing rows | Substitutions | Rate | Replacements seen |
+| Sound | Substitutions | Occurrences across 949 sentences | Rate | Replacements seen |
 |---|---|---|---|---|
-| AA (as in "father") | 34 | 5 | 14.7% | AH, AE, AO, ER |
-| EY (as in "say") | 18 | 2 | 11.1% | IH, L |
-| EH (as in "bed") | 49 | 4 | 8.2% | ER, AH, IY |
-| AY (as in "my") | 27 | 2 | 7.4% | EY, K |
-| R | 89 | 3 | 3.4% | ER, M, SH |
-| IH (as in "sit") | 97 | 3 | 3.1% | EH, ER, IY |
-| T | 134 | 3 | 2.2% | EH, IY, TH |
-| AH (as in "cup") | 184 | 2 | 1.1% | AO, IH |
+| AA (as in "father") | 5 | 379 | 1.3% | AH, AE, AO, ER |
+| EH (as in "bed") | 4 | 519 | 0.8% | ER, AH, IY |
+| R | 3 | 829 | 0.4% | ER, M, SH |
+| IH (as in "sit") | 3 | 1,138 | 0.3% | EH, ER, IY |
+| T | 3 | 1,540 | 0.2% | EH, IY, TH |
+| EY (as in "say") | 2 | 263 | 0.8% | IH, L |
+| AY (as in "my") | 2 | 407 | 0.5% | EY, K |
+| AH (as in "cup") | 2 | 1,702 | 0.1% | AO, IH |
 
-The four highest rates are all open or open-mid vowels, meaning the jaw sits
-low. Consonants occupy the bottom of the table between 1% and 3.4%. On this
-sample the model's consonant substitutions are less frequent than its open-vowel
-ones, though the counts are small enough that the ordering could shift on more
-data.
+Every rate sits below 1.4%, which is expected for a model that gets 92% of
+sentences exactly right. The two sounds substituted most often are the vowels AA
+and EH, and both are open or open-mid, meaning the jaw sits low when they are
+produced. This is consistent with the vowel-to-vowel pattern in the confusion
+matrix above, which is the stronger evidence since it does not depend on
+occurrence counts.
 
-The replacement column shows the same dispersion as the matrix. AA is replaced
-by four different vowels across its five substitutions, and EH by three across
-its four. Where a sound fails more than once, it tends to fail in a different
-direction each time, though with counts this low that observation is tentative.
+Read as a rate alone, this table is noisy at these volumes. A sound substituted
+once can show a higher rate than AA purely because it is rare: TH, for instance,
+appears 64 times with one substitution, giving a 1.6% rate off a single event.
+The substitution count is the reliable column; the rate is context for it.
 
-Counts are small throughout: two substitutions out of 18 occurrences produces an
-11% rate, and one more error would move it six points. The rates in this table
-should be treated as indicative of direction rather than as stable estimates.
+The replacement column shows the same dispersion as the matrix. AA is replaced by
+four different vowels across its five substitutions, and EH by three across its
+four, so where a sound fails more than once it tends to fail in a different
+direction each time.
 
 Grouping substitutions by articulatory feature, where place is where in the
 mouth a sound forms, manner is how it is produced, and voicing is whether the
@@ -317,7 +321,7 @@ and medium end and agrees with the 82% classified Low or Medium here.
 | 2 | Number formatting | 5 failing sentences; 17 predictions across all 949 contain a digit | Convert digits and spelled-out numbers to one form before scoring |
 | 3 | Rare and proper nouns | 56 predictions contain a word absent from the pronunciation dictionary | Extend dictionary coverage through the existing fallback |
 | 4 | Invented spellings | 17 failing sentences (22.4% of failures) | Constrain generation to real words |
-| 5 | Open vowel confusion | AA 14.7%, EY 11.1%, EH 8.2% within failing sentences | Needs acoustic-side work; not addressable at the text stage |
+| 5 | Open vowel confusion | Half of all phoneme substitutions (19 of 38) are vowel-to-vowel; AA and EH are the most-substituted sounds | Needs acoustic-side work; not addressable at the text stage |
 | 6 | Suffix additions | 1 clear case in the failure set, with related cases seen in the hand review | Same constraint as rank 4 |
 | 7 | Casing artefacts | 932 of 949 predictions carry an uppercase word | Cosmetic; normalise case before computing character error rate |
 | 8 | Exact homophones | 4 of the 85 substitutions | Choose a single canonical spelling at training time |
