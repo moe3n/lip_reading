@@ -142,6 +142,18 @@ def stage3(refs, hyps, homo, exact, out_dir, do_semantic):
     optional semantic (BERTScore), and the phoneme error-type breakdown."""
     report = error_category_report(refs, hyps, homo)
     cats = report["overall"]["substitution_categories"]
+    # Contextual analysis (framework Option 3): the grammar detector escalates
+    # homophone/near-homophone substitutions and resolves any that are a
+    # closed-class dependency-role mismatch (their/there and the like) to
+    # "Contextual". Counts here are how many substitutions it actually resolved.
+    contextual = report["overall"].get("stage3_categories", {})
+    contextual_methods = report["overall"].get("stage3_methods", {})
+
+    # Mechanical surface audit: uppercase words and digit tokens inflate CER
+    # without being decoding failures. Cheap, no parse needed.
+    import re as _re
+    up = sum(1 for h in hyps if any(w.isupper() and w.isalpha() and len(w) > 1 for w in h.split()))
+    dig = sum(1 for h in hyps if _re.search(r"\d", h))
 
     labels = em.error_type_breakdown(refs, hyps)
     type_summary = em.error_type_summary(labels)
@@ -159,6 +171,10 @@ def stage3(refs, hyps, homo, exact, out_dir, do_semantic):
 
     out = {
         "lexical_substitution_categories": cats,
+        "contextual_resolutions": dict(contextual),
+        "contextual_methods": dict(contextual_methods),
+        "surface_audit": {"predictions_with_uppercase_word": up,
+                          "predictions_with_digit": dig, "n_rows": len(hyps)},
         "phoneme_error_types": type_summary,
         "n_failing_rows": n_fail,
         "manual_audit": "pending (see failing_rows.csv; the framework's most "
@@ -221,32 +237,47 @@ def main():
     ap = argparse.ArgumentParser(description="Three-stage P2T error pattern analysis")
     ap.add_argument("--predictions", required=True, help="predictions CSV (target, prediction columns)")
     ap.add_argument("--out", required=True, help="output directory")
+    ap.add_argument("--stages", default="1,2,3",
+                    help="which stages to run this pass, e.g. '1' or '1,2,3'. "
+                         "Runs incrementally: results merge into an existing summary.json "
+                         "in --out, so stages can be done one at a time.")
     ap.add_argument("--semantic", action="store_true",
-                    help="also run BERTScore on failing rows (downloads a model, slower)")
+                    help="Stage 3 only: also run BERTScore on failing rows (downloads a model, slower)")
     args = ap.parse_args()
+    stages = {s.strip() for s in args.stages.split(",")}
 
     Path(args.out).mkdir(parents=True, exist_ok=True)
     refs, hyps, homo, exact = load_predictions(args.predictions)
     print(f"Loaded {len(refs)} rows | {sum(exact)} exact match | {len(refs) - sum(exact)} failing")
 
-    summary = {
-        "source": os.path.abspath(args.predictions),
-        "n_rows": len(refs),
-        "stage1_conventional": stage1(refs, hyps, homo),
-        "stage2_phoneme_patterns": stage2(refs, hyps, homo, args.out),
-        "stage3_hierarchical": stage3(refs, hyps, homo, exact, args.out, args.semantic),
-    }
-    with open(os.path.join(args.out, "summary.json"), "w", encoding="utf-8") as f:
-        json.dump(summary, f, indent=2)
+    # Merge into any existing summary so running a later stage does not erase an
+    # earlier one.
+    summary_path = os.path.join(args.out, "summary.json")
+    summary = {}
+    if os.path.isfile(summary_path):
+        with open(summary_path, encoding="utf-8") as f:
+            summary = json.load(f)
+    summary["source"] = os.path.abspath(args.predictions)
+    summary["n_rows"] = len(refs)
 
-    s1, s2 = summary["stage1_conventional"], summary["stage2_phoneme_patterns"]
-    print(f"\nStage 1  PER {s1['phoneme_error_rate_pct']}%  WER {s1['word_error_rate_pct']}%  "
-          f"CER {s1['char_error_rate_pct']}%  EM {s1['exact_match_pct']}%")
-    print(f"Stage 2  {s2['n_substitutions']} phoneme subs across {s2['n_distinct_pairs']} pairs, "
-          f"{s2['n_repeated_pairs']} repeated; WPER/PER {s2['wper_over_per']}")
-    print(f"Stage 3  {summary['stage3_hierarchical']['n_failing_rows']} failing rows "
-          f"(manual audit pending)")
-    print(f"\nWrote tables, confusion matrix, and summary.json to {args.out}/")
+    if "1" in stages:
+        summary["stage1_conventional"] = stage1(refs, hyps, homo)
+        s1 = summary["stage1_conventional"]
+        print(f"\nStage 1  PER {s1['phoneme_error_rate_pct']}%  WER {s1['word_error_rate_pct']}%  "
+              f"CER {s1['char_error_rate_pct']}%  EM {s1['exact_match_pct']}%")
+    if "2" in stages:
+        summary["stage2_phoneme_patterns"] = stage2(refs, hyps, homo, args.out)
+        s2 = summary["stage2_phoneme_patterns"]
+        print(f"Stage 2  {s2['n_substitutions']} phoneme subs across {s2['n_distinct_pairs']} pairs, "
+              f"{s2['n_repeated_pairs']} repeated; WPER/PER {s2['wper_over_per']}")
+    if "3" in stages:
+        summary["stage3_hierarchical"] = stage3(refs, hyps, homo, exact, args.out, args.semantic)
+        print(f"Stage 3  {summary['stage3_hierarchical']['n_failing_rows']} failing rows "
+              f"(manual audit pending)")
+
+    with open(summary_path, "w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=2)
+    print(f"\nStages {sorted(stages)} written to {args.out}/")
 
 
 if __name__ == "__main__":
