@@ -1,0 +1,12 @@
+{
+  "model": "all-MiniLM-L6-v2",
+  "method": "sentence-embedding cosine similarity",
+  "n": 76,
+  "mean": 0.6615,
+  "median": 0.6482,
+  "ge_0.90": 18,
+  "ge_0.70": 32,
+  "lt_0.50": 17,
+  "homophone_mean": 0.68,
+  "non_homophone_mean": 0.6259
+}

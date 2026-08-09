@@ -1,0 +1,10 @@
+{
+  "n": 107,
+  "mean": 0.8774,
+  "median": 0.8879,
+  "ge_0.90": 45,
+  "ge_0.70": 103,
+  "lt_0.50": 0,
+  "homophone_mean": 0.8835,
+  "non_homophone_mean": 0.865
+}

@@ -1,0 +1,6 @@
+STATUS | HOMO | PREDICTED | TARGET
+WRONG | H | This is a test. | AND FOR ME THE SURPRISE WAS
+WRONG | - | I'm running errands. | THEY'RE MOVING AROUND
+WRONG | H | And we're ready to roll. | AND WE WERE RIGHT
+WRONG | H | This is a test. | AND THE NEXT DAY
+WRONG | H | This is not a test. | WHEN THERE ISN'T MUCH ELSE IN THE GARDEN

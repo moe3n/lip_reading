@@ -1,0 +1,5 @@
+{"index": 0, "phonemes": "<SOS> AH0 N D <space> F AO1 R <space> M IY1 <space> DH AH0 <space> S ER0 P R AY1 Z <space> W AA1 Z <space> <EOS>", "target": "AND FOR ME THE SURPRISE WAS", "prediction": "This is a test."}
+{"index": 1, "phonemes": "<SOS> DH EY1 <space> '   R EY1 <space> M UW1 V IH0 NG <space> ER0 AW1 N D <space> <EOS>", "target": "THEY'RE MOVING AROUND", "prediction": "I'm running errands."}
+{"index": 2, "phonemes": "<SOS> AH0 N D <space> W IY1 <space> W ER0 <space> R AY1 T <space> <EOS>", "target": "AND WE WERE RIGHT", "prediction": "And we're ready to roll."}
+{"index": 3, "phonemes": "<SOS> AH0 N D <space> DH AH0 <space> N EH1 K S T <space> D EY1 <space> <EOS>", "target": "AND THE NEXT DAY", "prediction": "This is a test."}
+{"index": 4, "phonemes": "<SOS> W EH1 N <space> DH EH1 R <space> IH1 Z <space> EH1 N T AY1 <space> M AH1 CH <space> EH1 L S <space> IH0 N <space> DH AH0 <space> G AA1 R D AH0 N <space> <EOS>", "target": "WHEN THERE ISN'T MUCH ELSE IN THE GARDEN", "prediction": "This is not a test."}

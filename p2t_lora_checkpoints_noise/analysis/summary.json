@@ -1,0 +1,92 @@
+{
+  "source": "C:\\Projects\\lip_reading\\p2t_lora_checkpoints_noise\\predictions.csv",
+  "n_rows": 949,
+  "stage1_conventional": {
+    "phoneme_error_rate_pct": 2.262,
+    "word_error_rate_pct": 2.915,
+    "char_error_rate_pct": 1.596,
+    "exact_match_pct": 88.725,
+    "n": 949
+  },
+  "stage2_phoneme_patterns": {
+    "sid": {
+      "word": {
+        "hits": 5087,
+        "substitutions": 120,
+        "insertions": 25,
+        "deletions": 7,
+        "wer": 0.02915228231683928
+      },
+      "char": {
+        "hits": 25849,
+        "substitutions": 161,
+        "insertions": 146,
+        "deletions": 110,
+        "cer": 0.015964777947932617
+      }
+    },
+    "n_substitutions": 97,
+    "n_distinct_pairs": 81,
+    "n_repeated_pairs": 14,
+    "vowel_to_vowel_subs": 42,
+    "aer": {
+      "place_pct": 46.391752577319586,
+      "manner_pct": 50.51546391752577,
+      "voicing_pct": 32.98969072164948,
+      "n_classified": 97
+    },
+    "phoneme_error_rate_pct": 2.262,
+    "weighted_per_pct": 1.969,
+    "wper_over_per": 0.87
+  },
+  "stage3_hierarchical": {
+    "lexical_substitution_categories": {
+      "Other": 94,
+      "Near-homophone": 19,
+      "Homophone": 7
+    },
+    "contextual_resolutions": {},
+    "contextual_methods": {},
+    "surface_audit": {
+      "predictions_with_uppercase_word": 949,
+      "predictions_with_digit": 17,
+      "n_rows": 949
+    },
+    "phoneme_error_types": {
+      "Exact match": {
+        "count": 842,
+        "pct": 88.72497365648051
+      },
+      "Other": {
+        "count": 39,
+        "pct": 4.10958904109589
+      },
+      "Vowel": {
+        "count": 27,
+        "pct": 2.845100105374078
+      },
+      "Manner": {
+        "count": 16,
+        "pct": 1.685985247629083
+      },
+      "Short": {
+        "count": 11,
+        "pct": 1.1591148577449948
+      },
+      "Homophone": {
+        "count": 7,
+        "pct": 0.7376185458377239
+      },
+      "Long": {
+        "count": 6,
+        "pct": 0.6322444678609063
+      },
+      "Hallucination": {
+        "count": 1,
+        "pct": 0.10537407797681769
+      }
+    },
+    "n_failing_rows": 107,
+    "manual_audit": "pending (see failing_rows.csv; the framework's most defensible option requires a human pass)"
+  }
+}
