@@ -81,9 +81,6 @@ def add_table(doc, rows):
 
 
 def convert(md_path, docx_path):
-    with open(md_path, encoding="utf-8") as f:
-        lines = f.read().split("\n")
-
     doc = Document()
     style = doc.styles["Normal"]
     style.font.name = "Calibri"
@@ -92,6 +89,18 @@ def convert(md_path, docx_path):
 
     for section in doc.sections:
         section.left_margin = section.right_margin = Inches(1.0)
+
+    render_markdown_into(doc, md_path)
+    doc.save(docx_path)
+    return docx_path
+
+
+def render_markdown_into(doc, md_path):
+    """Render the markdown at md_path into an existing python-docx Document.
+    Used both by convert() and by callers that build their own cover page first.
+    Image paths in the markdown resolve relative to md_path."""
+    with open(md_path, encoding="utf-8") as f:
+        lines = f.read().split("\n")
 
     i = 0
     while i < len(lines):
@@ -156,9 +165,6 @@ def convert(md_path, docx_path):
             continue
 
         i += 1
-
-    doc.save(docx_path)
-    return docx_path
 
 
 if __name__ == "__main__":

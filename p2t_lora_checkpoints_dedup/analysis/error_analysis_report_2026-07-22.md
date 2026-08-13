@@ -259,59 +259,72 @@ grammaticality.
 
 ### 3.3 Semantic analysis
 
-Semantic similarity scoring compares meaning through contextual language
-embeddings, so two sentences can score highly even when their words differ.
-Measured on the 76 failing rows:
+Semantic similarity was measured with the framework's Option 4 method, sentence
+embeddings, which encode each sentence to a single vector and take the cosine
+between target and prediction. Two sentences can score highly even when their
+words differ. Measured on the 76 failing rows:
 
 | Statistic | Value |
 |---|---|
-| Mean | 0.884 |
-| Median | 0.905 |
-| Scoring 0.90 or above | 40 of 76 (52.6%) |
-| Scoring 0.70 or above | 75 of 76 (98.7%) |
-| Scoring below 0.50 | 0 of 76 |
+| Mean | 0.662 |
+| Median | 0.648 |
+| Scoring 0.90 or above | 18 of 76 (23.7%) |
+| Scoring 0.70 or above | 32 of 76 (42.1%) |
+| Scoring below 0.50 | 17 of 76 (22.4%) |
 
-Meaning is largely preserved even on failures. Homophone and non-homophone rows
-score within one point of each other, at 0.886 and 0.880.
+About a fifth of failures fall below 0.50, which are genuine meaning losses. The
+lowest scores are cases where a key content word changed and the sentence meaning
+collapsed, and the highest are the formatting and grammatical cases where meaning
+survives (SIX becoming 6, an article insertion). Homophone-row failures preserve
+meaning slightly better than non-homophone ones, at 0.680 against 0.626, which
+matches the phoneme-level finding that non-homophone errors land further from the
+target.
 
-The framework notes that semantic similarity alone is insufficient, since a
-meaning reversal can still score highly. That caution applies here. Our high
-scores establish an absence of wholesale semantic drift; they cannot by
-themselves rule out a reversal, and the manual audit is what confirms none
-occurred.
+This report first measured semantics with a token-level method (BERTScore), which
+reported a mean of 0.884 and no failures below 0.50, so meaning looked fully
+preserved. The framework's own caution about Option 4 is that a similarity score
+can stay high while meaning changes, and that is exactly what the token-level
+method did here by rewarding word overlap. The sentence-embedding method above
+catches the meaning losses the token-level score missed, so it is the reading this
+report relies on.
 
 ### 3.4 Severity assessment
 
-Severity is assigned per category against the framework's four levels. The
-assignment works at category level; per-row annotation would be the more
-defensible form if required.
+Severity is assigned by meaning impact, using the per-row sentence-embedding
+scores, since the framework defines severity by consequence and a semantic score
+measures exactly that. Bands: Low is a score at or above 0.90 (meaning preserved),
+Medium is 0.70 to 0.90 (minor drift), High is 0.50 to 0.70 (substantial change),
+and meaning-lost is below 0.50.
 
-| Severity | Categories | Rows | Share |
-|---|---|---|---|
-| Low | Number formatting, word boundary error, suffix addition | 11 | 14.5% |
-| Medium | Homophone substitution, invented spelling | 51 | 67.1% |
-| High | Incorrect word selection, rare word substitution, truncation | 14 | 18.4% |
-| Critical | None | 0 | 0% |
+| Severity | Rows | Share |
+|---|---|---|
+| Low | 18 | 23.7% |
+| Medium | 14 | 18.4% |
+| High | 27 | 35.5% |
+| Meaning lost | 17 | 22.4% |
 
-Low covers cases where meaning survives intact and a reader recovers the
-intended text without effort, such as SIX rendered as 6 or ROPES split into ROPE
-S. Medium covers an incorrect lexical choice inside an understandable sentence,
-matching the framework's own example of there becoming their. High covers
-substantial meaning change, such as RARITY becoming RETIREMENT or a dropped
-final word.
+More than half of the failures carry substantial meaning change or worse. Low
+covers cases where meaning survives intact and a reader recovers the intended text
+without effort, such as SIX rendered as 6. High covers substantial meaning change,
+such as RARITY becoming RETIREMENT, and the meaning-lost band holds the cases where
+a content word changed and the sentence no longer means what it should.
 
-The mapping from category to severity is a judgement applied uniformly to each
-category, so individual rows within a category may warrant a different level on
-closer reading. The table should be read at that resolution.
+An earlier version of this section assigned severity per error category by a rule,
+which put most failures at Low or Medium. That was too lenient: it inherited the
+token-level semantic method's overstatement of meaning preservation. Reading
+severity from the sentence-embedding score directly gives the more honest and more
+severe distribution above.
 
-No row was classified critical. The framework defines critical by consequence,
-such as a medical negation reversing, and this corpus is broadcast television
-content where no output is likely to carry safety risk. Severity in a
-safety-critical deployment would need reassessing against that domain.
+A caution the framework itself raises applies here. A similarity score cannot
+detect a fluent meaning reversal, which would score high while being severe, so
+this method cannot rule out the framework's true Critical category on its own. This
+corpus is broadcast television with no safety-consequential output, so genuine
+Critical is a domain question rather than a scoring one; in a safety-critical
+deployment, severity would need human review.
 
-The semantic scores are consistent with this distribution. No row falls below
-0.50 and only one below 0.70, which places most of the failure mass at the low
-and medium end and agrees with the 82% classified Low or Medium here.
+One scale caution: sentence-embedding cosine runs lower than a token-level score
+and short sentences pull it down, so the band cutoffs are not absolute truth. The
+reliable signals are the ranking of failures and the verified extremes.
 
 ## Outputs: correction recommendations
 
@@ -339,9 +352,9 @@ The confusion matrix figure replaces an earlier, incorrectly computed version.
 Any figure or table produced before this report that shows single-letter
 confusion pairs comes from that earlier version and should be set aside.
 
-Severity was assigned one level per category. Annotating each of the 76 failures
-individually would make the severity breakdown defensible under the framework's
-most rigorous option, its manual-annotation route.
+Severity is read from the per-row sentence-embedding score. A human pass over the
+76 failures, confirming meaning impact by eye, would make the severity breakdown
+defensible under the framework's most rigorous option, its manual-annotation route.
 
 Classification by a language model, the framework's fifth Stage 3 option, is
 implemented but has not been run. Running it would give an independent second
@@ -366,5 +379,7 @@ sentences remains untouched and available for final reporting.
 Derived from the beam-5 predictions on the 949-row deduplicated validation set,
 in this directory. Supporting tables are in `tables/` and figures in `figures/`.
 The token-level confusion matrix is in `tables/phoneme_confusion_tokens_all949.csv`
-and `tables/phoneme_confusion_tokens_emfalse.csv`. Semantic scoring used the
-DeBERTa-base-MNLI model at layer 10. No GPU required for any analysis step.
+and `tables/phoneme_confusion_tokens_emfalse.csv`. Semantic scoring uses sentence
+embeddings (all-MiniLM-L6-v2) for the reported numbers, with the earlier
+token-level BERTScore (DeBERTa-base-MNLI) noted for contrast in Stage 3.3. No GPU
+required for any analysis step.

@@ -251,7 +251,7 @@ def train_one_epoch(model, opt, loader):
 
 
 # ── Data loading ──────────────────────────────────────────────────────────
-def load_pairs(n: int) -> List[Tuple[str, str]]:
+def load_pairs(n: int, official: bool = False) -> List[Tuple[str, str]]:
     rows: List[Tuple[str, str]] = []
     with open(CORPUS_CSV, "r", encoding="utf-8", newline="") as f:
         rdr = csv.reader(f)
@@ -261,8 +261,15 @@ def load_pairs(n: int) -> List[Tuple[str, str]]:
             cs = clean_text(sent); cp = clean_phonemes(phon)
             if cs and cp:
                 rows.append((cp, cs))
-            if n and len(rows) >= n:
+            if n and not official and len(rows) >= n:
                 break
+    if official:
+        # Official LRS2 sequential split, matching the LoRA runs: train = first
+        # 45,839 rows, held-out test = last 1,243 (the 1,082 val rows in between
+        # are not used by this baseline). Reported so the no-LLM floor is on the
+        # same test set as every other model.
+        TRAIN_N, VAL_N, TEST_N = 45839, 1082, 1243
+        return rows[:TRAIN_N], rows[TRAIN_N + VAL_N: TRAIN_N + VAL_N + TEST_N]
     # Train 80% / val 20% — sequential, matches the LRS2 order
     cut = int(len(rows) * 0.8)
     return rows[:cut], rows[cut:]
@@ -292,7 +299,10 @@ def main():
     p.add_argument("--epochs", type=int, default=N_EPOCHS)
     p.add_argument("--batch", type=int, default=BATCH_SIZE)
     p.add_argument("--max_train", type=int, default=4000,
-                   help="absolute cap on train set after 80/20 split")
+                   help="absolute cap on train set after 80/20 split (ignored with --official)")
+    p.add_argument("--official", action="store_true",
+                   help="train on the full 45,839-row LRS2 train split and evaluate on the "
+                        "held-out 1,243-row test split, matching the LoRA runs")
     args = p.parse_args()
 
     os.makedirs(OUT_DIR, exist_ok=True)
@@ -306,9 +316,13 @@ def main():
 
     t0 = time.time()
     print("Loading + cleaning CSV...")
-    train_pairs, val_pairs = load_pairs(args.n)
-    train_pairs = train_pairs[: args.max_train]
-    print(f"  Loaded train={len(train_pairs):,}  val={len(val_pairs):,}")
+    if args.official:
+        train_pairs, val_pairs = load_pairs(0, official=True)
+        print(f"  Official split: train={len(train_pairs):,}  test={len(val_pairs):,}")
+    else:
+        train_pairs, val_pairs = load_pairs(args.n)
+        train_pairs = train_pairs[: args.max_train]
+        print(f"  Loaded train={len(train_pairs):,}  val={len(val_pairs):,}")
     build_vocabs(train_pairs)
 
     train_ds = PhonemeTextDataset(train_pairs)
