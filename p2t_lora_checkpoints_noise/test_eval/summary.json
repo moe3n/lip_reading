@@ -1,0 +1,9 @@
+{
+  "checkpoint": "p2t_lora_checkpoints_noise\\epoch_3",
+  "num_beams": 5,
+  "test_total": 1243,
+  "in_training": 152,
+  "deduplicated_rows": 1091,
+  "standard_EM": 86.08,
+  "dedup_EM": 84.14
+}

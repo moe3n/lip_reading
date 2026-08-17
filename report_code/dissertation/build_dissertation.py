@@ -24,25 +24,6 @@ BODY_MD = [os.path.join(HERE, f) for f in (
     "chapter_9.md", "chapter_10.md", "chapter_11.md", "chapter_12.md", "references.md")]
 OUT = os.path.join(HERE, os.environ.get("DISS_OUT", "dissertation.docx"))
 
-# Appendix B: the core method source, listed in reading order. Paths are relative
-# to report_code/ (the cleaned copy; the working repo keeps the fully commented one).
-REPO_ROOT = os.path.dirname(HERE)
-REPORT_CODE = os.path.join(REPO_ROOT, "report_code")
-APPENDIX_CODE = [
-    "src/p2t_lora/model.py",
-    "src/p2t_lora/dryrun.py",
-    "src/p2t_lora/data/loader.py",
-    "src/p2t_lora/data/g2p.py",
-    "src/p2t_lora/augmentation/phoneme_noise.py",
-    "src/p2t_lora/evaluation/metrics.py",
-    "src/p2t_lora/evaluation/error_analysis.py",
-    "src/p2t_lora/evaluation/extended_metrics.py",
-    "analysis/error_pattern_analysis.py",
-    "direct_baseline.py",
-    "eval_test_clean.py",
-    "zero-shot/run_baseline.py",
-]
-
 # Placeholders the student fills in. Kept obvious so none is missed.
 TITLE = "Phoneme-to-Text Conversion for Automated Lip-Reading: Efficient Fine-Tuning and Robustness of a Decoder-Only Large Language Model"
 AUTHOR = "[Surname, Initial]"
@@ -85,45 +66,6 @@ def centered(doc, text, size, bold=False, space_after=12, space_before=0):
 
 def page_break(doc):
     doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
-
-
-def add_code_line(doc, text):
-    """One source line as a single-spaced 8pt monospaced paragraph (indentation preserved)."""
-    p = doc.add_paragraph()
-    pf = p.paragraph_format
-    pf.line_spacing_rule = WD_LINE_SPACING.SINGLE
-    pf.space_after = Pt(0)
-    pf.space_before = Pt(0)
-    r = p.add_run(text)
-    r.font.name = "Consolas"
-    r.font.size = Pt(8)
-
-
-def add_code_appendix(doc):
-    """Append 'Appendix B: Source Code': each core file on its own page as a listing."""
-    if not os.path.isdir(REPORT_CODE):
-        print(f"  (skipped Appendix B: {REPORT_CODE} not found)")
-        return
-    page_break(doc)
-    doc.add_heading("Appendix B: Source Code", level=1)
-    doc.add_paragraph(
-        "The core method code is listed below in reading order: model loading and QLoRA "
-        "adaptation, training, data loading and grapheme-to-phoneme conversion, phoneme "
-        "corruption, the evaluation metrics and error-analysis framework, the three-stage "
-        "analysis driver, the baselines, and the zero-shot runner. Inline comments have been "
-        "condensed for brevity; the full repository retains the complete commentary."
-    )
-    for rel in APPENDIX_CODE:
-        path = os.path.join(REPORT_CODE, rel.replace("/", os.sep))
-        if not os.path.isfile(path):
-            print(f"  (Appendix B: missing {rel})")
-            continue
-        page_break(doc)
-        doc.add_heading(rel, level=2)
-        with open(path, encoding="utf-8") as f:
-            code = f.read().rstrip("\n")
-        for line in code.split("\n"):
-            add_code_line(doc, line)
 
 
 def main():
@@ -184,8 +126,6 @@ def main():
     # ── Body ──────────────────────────────────────────────────────────────────
     for md in BODY_MD:
         render_markdown_into(doc, md)
-
-    add_code_appendix(doc)
 
     doc.save(OUT)
     print(f"Wrote {OUT}")
