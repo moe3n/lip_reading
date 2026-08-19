@@ -14,11 +14,11 @@ The problem matters on three levels. Practically, a stronger phoneme-to-text sta
 
 ## 2.2 Problem statement
 
-The phoneme-to-text decoder in a lip-reading pipeline has to be accurate, honestly evaluated, and robust to the imperfect input a real visual front-end produces. Three gaps remain in the existing work on this stage.
+The phoneme-to-text decoder in a lip-reading pipeline has to be accurate, evaluated without data leakage, and robust to the imperfect input a real visual front-end produces. Three gaps remain in the existing work on this stage.
 
 The first gap concerns the choice of language model. Existing phoneme-to-text studies on LRS2 used encoder-decoder models such as T5 and Flan-T5. Decoder-only language models, of which the Llama family is a prominent open example (Grattafiori et al., 2024), now match or exceed encoder-decoder models on many generation tasks but have not been evaluated for this task on this corpus. Whether a decoder-only model can match or beat the encoder-decoder result is an open question.
 
-The second gap concerns honest evaluation. LRS2 is broadcast material, and broadcast speech repeats stock phrases, so a sentence can appear in both the training and evaluation portions; a model that has memorised it scores a perfect result that does not reflect genuine ability. Existing reports of high accuracy on this corpus do not quantify how much of the score comes from such overlap, so the true difficulty of the task is unclear.
+The second gap concerns leakage between training and evaluation. LRS2 is broadcast material, and broadcast speech repeats stock phrases, so a sentence can appear in both the training and evaluation portions; a model that has memorised it scores a perfect result that does not reflect genuine ability. Existing reports of high accuracy on this corpus do not quantify how much of the score comes from such overlap, so the true difficulty of the task is unclear.
 
 The third gap concerns robustness. A decoder trained only on perfect phoneme transcriptions has never seen the errors a visual front-end makes, the wrong, missing, and spurious phonemes. In a complete system the inference-time input contains exactly those errors, so a decoder that performs well only on flawless input may perform poorly in deployment. Whether a decoder degrades gracefully under such corruption, and whether training on deliberately corrupted input improves its robustness, has not been studied for this task.
 
@@ -26,9 +26,9 @@ Underlying all three is a working assumption, common in the lip-reading literatu
 
 ## 2.3 Aim and objectives
 
-The central hypothesis is that a decoder-only large language model, adapted to phoneme-to-text conversion by parameter-efficient fine-tuning, can match or exceed the accuracy of published encoder-decoder models on LRS2; that its honest accuracy is lower than a headline figure on the standard split, because of sentence overlap between training and evaluation; and that training on deliberately corrupted phonemes improves its robustness to imperfect input at a small cost to clean-input accuracy.
+The central hypothesis is that a decoder-only large language model, adapted to phoneme-to-text conversion by parameter-efficient fine-tuning, can match or exceed the accuracy of published encoder-decoder models on LRS2; that its accuracy on a deduplicated evaluation is lower than a headline figure on the standard split, because of sentence overlap between training and evaluation; and that training on deliberately corrupted phonemes improves its robustness to imperfect input at a small cost to clean-input accuracy.
 
-The aim of this project is to develop and evaluate a decoder-only large language model for phoneme-to-text conversion in lip-reading, to establish its honest accuracy on LRS2, to measure and improve its robustness to imperfect input, and to characterise the errors it makes.
+The aim of this project is to develop and evaluate a decoder-only large language model for phoneme-to-text conversion in lip-reading, to establish its accuracy on a deduplicated evaluation of LRS2, to measure and improve its robustness to imperfect input, and to characterise the errors it makes.
 
 The objectives that follow from this aim are:
 
@@ -60,7 +60,7 @@ This dissertation makes the following contributions to the phoneme-to-text stage
 
 It shows that a decoder-only language model, Llama-3.2-3B, fine-tuned with QLoRA, reaches high sentence-level accuracy on LRS2, and it places this result against both a prompting baseline of the same model and the published Flan-T5 encoder-decoder result.
 
-It contributes an audit of training-to-evaluation sentence overlap on LRS2 and reports a deduplicated accuracy figure, giving a more honest measure of task difficulty than a headline number computed on the raw split.
+It contributes an audit of training-to-evaluation sentence overlap on LRS2 and reports a deduplicated accuracy figure, giving an unbiased measure of task difficulty that a headline number computed on the raw split overstates.
 
 It introduces noise-augmented training for this task, in which a fraction of the training phonemes are deliberately corrupted, and it quantifies the resulting robustness against a clean-trained model across three corruption types and several corruption rates.
 

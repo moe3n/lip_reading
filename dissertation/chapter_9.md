@@ -31,7 +31,7 @@ The homophone and non-homophone subsets score within about one point of each oth
 
 The exploratory analysis found that roughly one evaluation sentence in eight appears verbatim in training, and the audit confirmed the effect on reported accuracy. On the test set, 152 of the 1,243 sentences appear in training, and removing them lowers exact match from 88.82% to 87.44%, a gap of 1.4 points. On the validation set, 133 of the 1,082 appear in training; the model scores a perfect result on those, and removing them lowers exact match to 91.99%.
 
-The deduplicated figure is the honest measure, since the removed sentences are ones the model may have memorised rather than generalised to. Both are reported: the standard figure remains available for comparison with published work on the raw split, while the deduplicated figure is the headline claim of the model's ability.
+The deduplicated figure reflects genuine generalisation, since the removed sentences are ones the model may have memorised. Both are reported: the standard figure remains available for comparison with published work on the raw split, while the deduplicated figure is the headline claim of the model's ability.
 
 ## 9.4 Noise augmentation and robustness
 
@@ -59,7 +59,7 @@ The decoding strategy has a large effect on accuracy, which is why it is treated
 
 ## 9.6 Cross-run comparison
 
-Table 9.3 brings the runs together. The two baselines sit at the floor, unable to perform the task. Fine-tuning raises exact match from near zero to the high eighties on the held-out test set, which is the central result. The clean-trained model exceeds the published encoder-decoder result on the same standard test set, and its honest deduplicated figure still exceeds it. The noise-augmented model trades a few points of clean-input accuracy for a large gain in robustness.
+Table 9.3 brings the runs together. The two baselines sit at the floor, unable to perform the task. Fine-tuning raises exact match from near zero to the high eighties on the held-out test set, which is the central result. The clean-trained model exceeds the published encoder-decoder result on the same standard test set, and its deduplicated figure still exceeds it. The noise-augmented model trades a few points of clean-input accuracy for a large gain in robustness.
 
 | Model | Exact match | Word error rate | Evaluation |
 | --- | --- | --- | --- |
@@ -73,4 +73,4 @@ Table 9.3 brings the runs together. The two baselines sit at the floor, unable t
 
 Table 9.3. Cross-run comparison. All fine-tuned and baseline figures are on the held-out test set, except the zero-shot baseline, which is on the full corpus.
 
-The results answer the first three research questions directly. Fine-tuning beats prompting and the no-language-model baseline, and the decoder-only model beats the published encoder-decoder result; the deduplicated figure is lower than the standard by a measured amount, establishing the honest accuracy; and noise-augmented training gives a large improvement in robustness for a small clean-input cost. The fourth research question, the dominant error types, is answered by the error analysis in Chapter 10.
+The results answer the first three research questions directly. Fine-tuning beats prompting and the no-language-model baseline, and the decoder-only model beats the published encoder-decoder result; the deduplicated figure is lower than the standard by a measured amount, establishing the unbiased accuracy; and noise-augmented training gives a large improvement in robustness for a small clean-input cost. The fourth research question, the dominant error types, is answered by the error analysis in Chapter 10.

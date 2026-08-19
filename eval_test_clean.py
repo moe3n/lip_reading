@@ -101,7 +101,7 @@ def main():
     dref = [r for r, k in zip(refs, keep) if k]
     dhyp = [h for h, k in zip(hyps, keep) if k]
     dhom = [m for m, k in zip(homo_mask, keep) if k]
-    print("\n" + "=" * 60 + "\n  DEDUPLICATED TEST SET (honest figure)")
+    print("\n" + "=" * 60 + "\n  DEDUPLICATED TEST SET (leakage-free figure)")
     ded = stratified_evaluate(dref, dhyp, dhom)
     print_results(ded, title=f"{CHECKPOINT_ROOT} — deduplicated test set")
     save_results(ded, os.path.join(OUT_DIR, "metrics_dedup.csv"), model_name=BASE_MODEL)
